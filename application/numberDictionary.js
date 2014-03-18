@@ -5,6 +5,14 @@ var numberDictionary = (function(){
 		return parsers[l].parseNumber(n);
 	}
 
+	this.supportedLanguages = function(){
+		return Object.keys(parsers);
+	}
+
+	this.numberOfSupportedLanguages = function(){
+		return Object.keys(parsers).length;
+	}
+
 	return this;
 })()
 

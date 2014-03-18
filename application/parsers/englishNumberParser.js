@@ -1,6 +1,7 @@
 var englishNumberParser = (function(){
 
-	var numbers = {'hasSingle': true, 'conjunction': 'and', 0:'zero', 1:'one', 2:'two', 3:'three', 4:'four', 5:'five',
+	var numbers = {'hasSingle': true, 'conjunction': 'and', 'negative': 'negative',
+		0:'zero', 1:'one', 2:'two', 3:'three', 4:'four', 5:'five',
 		6:'six', 7:'seven', 8:'eight', 9:'nine', 10:'ten',
 		11:'eleven', 12:'twelve', 13:'thirtheen', 14:'fourteen', 15: 'fifteen',
 		16:'sixteen', 17:'seventeen', 18:'eighteen', 19:'nineteen', 20:'twenty',
@@ -48,7 +49,6 @@ var englishNumberParser = (function(){
 		var ctr = 0;
 		while (nStr.length > 3){
 			var piece = parseInt(nStr.substr(nStr.length-3, nStr.length-1));
-			console.log(piece);
 
 			if (piece == 0){
 				nStr = nStr.substr(0,nStr.length-3);
@@ -77,6 +77,11 @@ var englishNumberParser = (function(){
 
 	this.parseNumber = function(n){
 		var out = '';
+		var negative = n < 0;
+
+		if (negative){
+			n *= -1;
+		}
 
 		if (n < 100){
 			out = parse10s(n, false);
@@ -89,6 +94,10 @@ var englishNumberParser = (function(){
 		}
 		else{
 			out = 'unbound';
+		}
+
+		if (negative){
+			out = numbers.negative + ' ' + out;
 		}
 
 		return out.trim();

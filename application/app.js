@@ -23,17 +23,19 @@ function start(request, response) {
 }
 
 function parsePage(page){
-	console.log(page);
+	//console.log(page);
 	var newPage = ['',{}];
-	var regexp = /\/\w*\/\d*$/g; // /word/number
-	if (page == '' || page == '/')
+	var regexp = /(\/\w*\/\d*$)|(\/\w*\/-\d*$)/g; // /word/number or /word/-number
+
+	if (page == '' || page == '/'){
 		newPage = ['/index.jade', {}];
+	}
 	else if (regexp.test(page)){
 		newPage[0] = '/number.jade';
 		var dict = {};
 		dict.number = getNumber(page);
 		dict.language = getLanguage(page);
-		console.log(dict.language, dict.number);
+		//console.log(dict.language, dict.number);
 		dict.parsedNumber = getNumberInLanguage(dict.number, dict.language);
 		newPage[1] = dict;
 	}
@@ -44,16 +46,11 @@ function getNumber(line){
 	var len = line.length;
 	var ret = '';
 
-	for (var i=len-1; i >= 0; i--){
-		if (line[i] == '/'){
-			return ret;
-		}
-		else if (new RegExp(/[^\d]/g).test(line[i])){
-			break;
-		}
-		else{
-			ret = line[i] + ret;
-		}
+	var secondSlash = line.lastIndexOf('/');
+	var ret = parseInt(line.substring(secondSlash+1, len));
+
+	if (typeof(ret) == 'number'){
+		return ret;
 	}
 
 	return 'error';
