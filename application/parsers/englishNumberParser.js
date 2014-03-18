@@ -42,7 +42,6 @@ var englishNumberParser = (function(){
 		return out;
 	}
 
-	// there's something clever here keep working ;)
 	function parseGreaterThanOrEqualTo1000(n){
 		var out = '';
 		var nStr = n.toString();
@@ -52,7 +51,7 @@ var englishNumberParser = (function(){
 			console.log(piece);
 
 			if (piece == 0){
-				nStr = nStr.substr(0,nStr.length-3)
+				nStr = nStr.substr(0,nStr.length-3);
 				ctr += 3;
 				continue;
 			}
@@ -65,7 +64,7 @@ var englishNumberParser = (function(){
 
 			out = piece + ' ' + (ctr >= 3 ? numbers[Math.pow(10,ctr)]:'') + ' ' + out;
 
-			nStr = nStr.substr(0,nStr.length-3)
+			nStr = nStr.substr(0,nStr.length-3);
 			ctr += 3;
 		}
 		out = this.parseNumber(nStr.substr(0,3)) + ' ' + numbers[Math.pow(10, ctr)] + ' ' + out;
