@@ -36,7 +36,7 @@ var spanishNumberParser = (function(){
 
 	function parse100s(n){
 		var out = '';
-		console.log(n);
+		//console.log(n);
 		if (n == 100){
 			out = numbers[100];
 		}
