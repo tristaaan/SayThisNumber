@@ -1,6 +1,11 @@
 #How Do I Say This Number
 Parses numbers to a human language.
 
+##Requirements
+Available via npm.
+ - mime
+ - jade
+
 ##Usage
 Run `node index.js` and go to `127.0.0.1:8181` a basic page with instructions is there.
 
