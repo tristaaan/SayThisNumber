@@ -1,4 +1,5 @@
-var spanishNumberParser = (function(){
+var spanishNumberParser = function(){
+	var my = {};
 
 	var numbers = {'hasSingle': true, 'conjunction': 'y', '':'un', 'negative':'menos', 'shortOne': 'un',
 		0:'cero', 1:'uno', 2:'dos', 3:'tres', 4:'cuatro', 5:'cinco',
@@ -69,7 +70,7 @@ var spanishNumberParser = (function(){
 				piece = andSingle(piece);
 			}
 			else{
-				piece = this.parseNumber(parseInt(piece));
+				piece = my.parseNumber(parseInt(piece));
 			}
 
 			out = piece + ' ' + (ctr >= 3 ? numbers[Math.pow(10,ctr)]:'') + ' ' + out;
@@ -77,7 +78,7 @@ var spanishNumberParser = (function(){
 			nStr = nStr.substr(0,nStr.length-3);
 			ctr += 3;
 		}
-		out = this.parseNumber(nStr.substr(0,3)) + ' ' + numbers[Math.pow(10, ctr)] + ' ' + out;
+		out = my.parseNumber(nStr.substr(0,3)) + ' ' + numbers[Math.pow(10, ctr)] + ' ' + out;
 		return out;
 	}
 
@@ -85,7 +86,7 @@ var spanishNumberParser = (function(){
 		return numbers.conjunction+ ' ' + this.parseNumber(n);
 	}
 
-	this.parseNumber = function(n){
+	my.parseNumber = function(n){
 		var out = '';
 		var negative = n < 0;
 
@@ -113,7 +114,7 @@ var spanishNumberParser = (function(){
 		return out.trim();
 	}
 
-	return this;
-})()
+	return my;
+}
 
-module.exports = spanishNumberParser;
+module.exports = new spanishNumberParser;

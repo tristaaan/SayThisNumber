@@ -1,4 +1,6 @@
-var englishNumberParser = (function(){
+var englishNumberParser = function(){
+
+	var my = {};
 
 	var numbers = {'hasSingle': true, 'conjunction': 'and', 'negative': 'negative',
 		0:'zero', 1:'one', 2:'two', 3:'three', 4:'four', 5:'five',
@@ -59,7 +61,7 @@ var englishNumberParser = (function(){
 				piece = andSingle(piece);
 			}
 			else{
-				piece = this.parseNumber(parseInt(piece));
+				piece = my.parseNumber(parseInt(piece));
 			}
 
 			out = piece + ' ' + (ctr >= 3 ? numbers[Math.pow(10,ctr)]:'') + ' ' + out;
@@ -67,15 +69,15 @@ var englishNumberParser = (function(){
 			nStr = nStr.substr(0,nStr.length-3);
 			ctr += 3;
 		}
-		out = this.parseNumber(nStr.substr(0,3)) + ' ' + numbers[Math.pow(10, ctr)] + ' ' + out;
+		out = my.parseNumber(nStr.substr(0,3)) + ' ' + numbers[Math.pow(10, ctr)] + ' ' + out;
 		return out;
 	}
 
 	function andSingle(n){
-		return numbers.conjunction+ ' ' + this.parseNumber(n);
+		return numbers.conjunction+ ' ' + my.parseNumber(n);
 	}
 
-	this.parseNumber = function(n){
+	my.parseNumber = function(n){
 		var out = '';
 		var negative = n < 0;
 
@@ -103,7 +105,7 @@ var englishNumberParser = (function(){
 		return out.trim();
 	}
 
-	return this;
-})()
+	return my;
+}
 
-module.exports = englishNumberParser;
+module.exports = new englishNumberParser;
