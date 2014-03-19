@@ -3,8 +3,15 @@ var numberDictionary = (function(){
 	spanish: require('./parsers/spanishNumberParser')};
 
 	this.parseNumberForLanguage = function(n,l){
-		return parsers[l].parseNumber(n);
+		if (hasLanguage(l))
+			return parsers[l].parseNumber(n);
+		else
+			return 'Language unsupported.'
 	}
+	
+	function hasLanguage(l){
+		return Object.keys(parsers).indexOf(l) >= 0;
+	}	
 
 	this.supportedLanguages = function(){
 		return Object.keys(parsers);

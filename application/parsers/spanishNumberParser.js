@@ -83,7 +83,7 @@ var spanishNumberParser = function(){
 	}
 
 	function andSingle(n){
-		return numbers.conjunction+ ' ' + this.parseNumber(n);
+		return numbers.conjunction+ ' ' + my.parseNumber(n);
 	}
 
 	my.parseNumber = function(n){
