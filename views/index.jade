@@ -3,4 +3,17 @@ html
 	head
 		title Say Numbers
 	body
-		p Hello World
+		h1 How Do I Say This Number In ... ?
+		p Parses a number to its natural language form.
+		p Usage: http://howdoisaythisnumber.in/<strong>[language]</strong>/<strong>[number]</strong>
+		p Example:
+		a(href='http://howdoisaythisnumber.in/english/123') http://howdoisaythisnumber.in/english/123
+
+		h2 Supported Languages:
+		p There are #{languageCount} supported languages:
+		ul
+			each val in languages
+				li #{val}
+
+		h2 Contribute
+		a(href='https://github.com/tristaaan/SayThisNumber.git') GitHub

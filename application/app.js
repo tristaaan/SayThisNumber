@@ -7,13 +7,16 @@ var jade = require('jade');
 
 var numberDictionary = require('./numberDictionary');
 
+var langCount = numberDictionary.numberOfSupportedLanguages();
+var languages = numberDictionary.supportedLanguages();
+
 //Web server startup.
 function start(request, response) {
 	var page = parsePage(url.parse(request.url).pathname);
 	var responsePage = jade.renderFile(__dirname+'/../views' + page[0], page[1], function (err, html) {
 		if (err){
 	  		response.writeHead(500);
-	  		//console.log(err);
+	  		console.log(err);
 			return response.end('Error loading page');
         }
 		response.writeHead(200, {'Content-Type': 'text/html'});
@@ -28,7 +31,7 @@ function parsePage(page){
 	var regexp = /(\/\w*\/\d*$)|(\/\w*\/-\d*$)/g; // /word/number or /word/-number
 
 	if (page == '' || page == '/'){
-		newPage = ['/index.jade', {}];
+		newPage = ['/index.jade', {'languageCount': langCount, 'languages': languages}];
 	}
 	else if (regexp.test(page)){
 		newPage[0] = '/number.jade';
