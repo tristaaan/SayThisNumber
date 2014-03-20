@@ -6,7 +6,7 @@ var numberDictionary = (function(){
 		if (hasLanguage(l))
 			return parsers[l].parseNumber(n);
 		else
-			return 'Language unsupported.'
+			return 'language unsupported.'
 	}
 	
 	function hasLanguage(l){
