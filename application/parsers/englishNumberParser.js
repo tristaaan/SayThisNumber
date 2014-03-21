@@ -1,3 +1,9 @@
+/**********************************************************************
+English number parser
+Author: Tristan Wright
+Last edited: March 2014
+**********************************************************************/
+
 var englishNumberParser = function(){
 
 	var my = {};
@@ -10,6 +16,13 @@ var englishNumberParser = function(){
 		30:'thirty', 40:'fourty', 50:'fifty', 60:'sixty', 70:'seventy', 80:'eighty', 90:'ninty', 100:'hundred',
 		1000: 'thousand', 1000000:'million', 1000000000:'billion', 1000000000000:'trillion', 1000000000000000:'quadrillion'};
 
+/*   Function: getPlace
+     Return the parsed value of a number in a certain position 
+     in the target language. For example, if n = 123, 
+     getPlace(n, 1, 10) will return the equivalent of "twenty" 
+     in the target language, and getPlace(n, 1, 1) will return
+     the equivalent of "two" in the target language. */
+	
 	function getPlace(n, which, scale){
 		return numbers[parseInt(n.toString()[which])*scale];
 	}
