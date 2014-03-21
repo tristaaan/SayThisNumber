@@ -1,3 +1,9 @@
+/**********************************************************************
+Spanish number parser
+Author: Tristan Wright
+Last edited: March 2014
+**********************************************************************/
+
 var spanishNumberParser = function(){
 	var my = {};
 
@@ -8,6 +14,13 @@ var spanishNumberParser = function(){
 		20:'veinte',
 		30:'treinta', 40:'cuarenta', 50:'cincuenta', 60:'sesenta', 70:'setenta', 80:'ochenta', 90:'noventa', 100:'cien',
 		1000: 'mil', 1000000:'millón', 1000000000:'millardo', 1000000000000:'billón'};
+
+/*   Function: getPlace
+     Return the parsed value of a number in a certain position 
+     in the target language. For example, if n = 123, 
+     getPlace(n, 1, 10) will return the equivalent of "twenty" 
+     in the target language, and getPlace(n, 1, 1) will return
+     the equivalent of "two" in the target language. */
 
 	function getPlace(n, which, scale){
 		return numbers[parseInt(n.toString()[which])*scale];
