@@ -18,3 +18,4 @@ Run `node index.js` and go to `127.0.0.1:8181`, a basic page with instructions i
 
 - English (American)
 - Spanish
+- Japanese (transliterated)
