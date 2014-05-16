@@ -12,7 +12,11 @@ var languages = numberDictionary.supportedLanguages();
 
 //Web server startup.
 function start(request, response) {
-	var isCurl = request.headers['user-agent'].substring(0,4).toLowerCase() == 'curl';
+	var isCurl = false;
+	if (typeof(request.headers['user-agent']) == 'string' && 
+		request.headers['user-agent'].length > 4){
+		isCurl = request.headers['user-agent'].substring(0,4).toLowerCase() == 'curl';
+	}
 	var page = parsePage(url.parse(request.url).pathname, isCurl);
 
 	if (!isCurl){
