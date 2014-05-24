@@ -113,8 +113,6 @@ var spanishNumberParser = function(){
 		var out = '';
 		var negative = n < 0;
 
-		console.log(n);
-
 		if (negative){
 			n *= -1;
 		}

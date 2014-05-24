@@ -18,7 +18,7 @@ function start(request, response) {
 		isCurl = request.headers['user-agent'].substring(0,4).toLowerCase() == 'curl';
 	}
 	var page = parsePage(url.parse(request.url).pathname, isCurl);
-	console.log(request);
+	
 	if (!isCurl){
 		var responsePage = jade.renderFile(__dirname+'/../views' + page[0], page[1], function (err, html) {
 			if (err){

@@ -4,6 +4,7 @@ var numberDictionary = (function(){
 				   japanese: require('./parsers/japaneseNumberParser')};
 
 	this.parseNumberForLanguage = function(n,l){
+		console.log(n, l);
 		if (hasLanguage(l))
 			return parsers[l].parseNumber(n);
 		else
