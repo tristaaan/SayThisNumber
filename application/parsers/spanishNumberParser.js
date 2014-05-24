@@ -13,6 +13,7 @@ var spanishNumberParser = function(){
 		11:'once', 12:'doce', 13:'trece', 14:'catorce', 15: 'quince',
 		20:'veinte',
 		30:'treinta', 40:'cuarenta', 50:'cincuenta', 60:'sesenta', 70:'setenta', 80:'ochenta', 90:'noventa', 100:'cien',
+		500: 'quinientos',
 		1000: 'mil', 1000000:'millón', 1000000000:'millardo', 1000000000000:'billón'};
 
 /*   Function: getPlace
@@ -50,15 +51,24 @@ var spanishNumberParser = function(){
 
 	function parse100s(n){
 		var out = '';
-		//console.log(n);
 		if (n == 100){
 			out = numbers[100];
 		}
 		else if (n % 100 == 0 && Math.floor(n/100) > 1){
-			out = getPlace(n, 0, 1) + ' ' + numbers[100] + 'to';
+			if (n == 500){
+				out = numbers[500];
+			}
+			else {
+				out = getPlace(n, 0, 1) + ' ' + numbers[100] + 'to';
+			}
 		}
 		else if (Math.floor(n/100) > 1){
-			out = getPlace(n, 0, 1) + ' ' + numbers[100] + 'to ' + parse10s(parseInt(n.toString().substr(1,2)), true);
+			if (n > 500 && n < 600){
+				out = numbers[500] + ' ' + parse10s(parseInt(n.toString().substr(1,2)), true);
+			}
+			else{
+				out = getPlace(n, 0, 1) + ' ' + numbers[100] + 'to ' + parse10s(parseInt(n.toString().substr(1,2)), true);
+			}
 		}
 		else {
 			out = numbers[100] + 'to ' + parse10s(parseInt(n.toString().substr(1,2)), true);
@@ -102,6 +112,8 @@ var spanishNumberParser = function(){
 	my.parseNumber = function(n){
 		var out = '';
 		var negative = n < 0;
+
+		console.log(n);
 
 		if (negative){
 			n *= -1;
