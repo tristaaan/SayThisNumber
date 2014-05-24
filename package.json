@@ -1,0 +1,10 @@
+{
+  "name": "saythisnumber",
+  "version": "0.2.0",
+  "dependencies": {
+    "mime": "~1.2.11",
+    "jade": "~1.3.1"
+  },
+  "devDependencies": {
+  }
+}
