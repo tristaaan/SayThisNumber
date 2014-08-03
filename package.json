@@ -1,6 +1,11 @@
 {
   "name": "saythisnumber",
   "version": "0.2.0",
+  "main": "index.js",
+  "repository": {
+    "type":"git",
+    "url": "https://github.com/tristaaan/SayThisNumber"
+  },
   "dependencies": {
     "mime": "~1.2.11",
     "jade": "~1.3.1"
