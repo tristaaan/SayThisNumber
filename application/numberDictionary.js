@@ -1,7 +1,9 @@
 var numberDictionary = (function(){
 	var parsers = {english: require('./parsers/englishNumberParser'),
 				   spanish: require('./parsers/spanishNumberParser'),
-				   japanese: require('./parsers/japaneseNumberParser')};
+				   japanese: require('./parsers/japaneseNumberParser'),
+           french: require('./parsers/frenchNumberParser')
+         };
 
 	this.parseNumberForLanguage = function(n,l){
 		console.log(n, l);
