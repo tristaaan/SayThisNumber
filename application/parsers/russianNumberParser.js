@@ -7,7 +7,7 @@ Last edited: August 2014
 var russianNumberParser = function(){
 	var my = {};
 
-	var numbers = {'hasSingle': true, 'negative':'menos',
+	var numbers = {'negative':'минус',
 		0:'ноль', 1:'один', 2:'два', 3:'три', 4:'четыре', 
 		5:'пять', 6:'шесть', 7:'семь', 8:'восемь', 9:'девять', 
 		10:'десять', 11:'одиннадцать', 12:'двенадцать', 13:'тринадцать', 14:'четырнадцать', 
