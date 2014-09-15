@@ -3,7 +3,8 @@ var numberDictionary = (function(){
 				   spanish: require('./parsers/spanishNumberParser'),
 				   japanese: require('./parsers/japaneseNumberParser'),
         		   french: require('./parsers/frenchNumberParser'),
-        		   russian: require('./parsers/russianNumberParser')
+        		   russian: require('./parsers/russianNumberParser'),
+        		   norwegian: require('./parsers/norwegianNumberParser')
          };
 
 	this.parseNumberForLanguage = function(n,l){
