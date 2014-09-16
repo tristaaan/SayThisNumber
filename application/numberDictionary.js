@@ -1,11 +1,13 @@
 var numberDictionary = (function(){
-	var parsers = {english: require('./parsers/englishNumberParser'),
-				   spanish: require('./parsers/spanishNumberParser'),
-				   japanese: require('./parsers/japaneseNumberParser'),
-        		   french: require('./parsers/frenchNumberParser'),
-        		   russian: require('./parsers/russianNumberParser'),
-        		   norwegian: require('./parsers/norwegianNumberParser')
-         };
+	var parsers = {
+		english: require('./parsers/englishNumberParser'),
+		french: require('./parsers/frenchNumberParser'),
+		icelandic: require('./parsers/icelandicNumberParser'),
+		japanese: require('./parsers/japaneseNumberParser'),
+		norwegian: require('./parsers/norwegianNumberParser'),
+		russian: require('./parsers/russianNumberParser'),
+		spanish: require('./parsers/spanishNumberParser')
+	};
 
 	this.parseNumberForLanguage = function(n,l){
 		console.log(n, l);

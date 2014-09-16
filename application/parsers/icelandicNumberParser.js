@@ -1,20 +1,23 @@
 /**********************************************************************
-Norwegian number parser
+Icelandic number parser
 Author: Tristan Wright
 Last edited: September 2014
 **********************************************************************/
 
-var norwegianNumberParser = function(){
+var icelandicNumberParser = function(){
 
 	var my = {};
 
-	var numbers = {'hasSingle': false, 'conjunction': 'og', 'negative': 'negativ',
-		0:'null', 1:'en', 2:'to', 3:'tre', 4:'fire', 5:'fem',
-		6:'seks', 7:'syv', 8:'åtte', 9:'ni', 10:'ti',
-		11:'elleve', 12:'tolv', 13:'tretten', 14:'fjorten', 15: 'femten',
-		16:'sexten', 17:'sytten', 18:'atten', 19:'niten', 20:'tjue',
-		30:'tretti', 40:'førti', 50:'femti', 60:'seksti', 70:'sytti', 80:'åtti', 90:'nitti', 100:'hundre',
-		1000: 'tusen', 1000000:'million', 1000000000:'milliard'};
+	var numbers = {'hasSingle': true, 'conjunction': 'og', 'negative': 'neikvæð',
+		0:'null', 1:'eitt', 2:'tvö', 3:'þrjú', 4:'fjögur', 5:'fimm',
+		6:'sex', 7:'sjö', 8:'átta', 9:'níu', 10:'tíu',
+		11:'ellefu', 12:'tólf', 13:'þrettán', 14:'fjórtán', 15: 'fimmtán',
+		16:'sextán', 17:'sautján', 18:'átján', 19:'nitán', 20:'tuttugu',
+		30:'þrjátíu', 40:'fjörutíu', 50:'fimmtíu', 60:'sextíu', 
+		70:'sjötíu', 80:'áttatíu', 90:'níutíu', 100:'hundrað',
+		1000: 'þúsund', 1000000:'milljón', 1000000000:'miljarður', 1000000000000:'billjón'};
+
+	var masculineSingles = {1: 'einn', 2:'tveir', 3:'þrír', 4:'fjórir'};
 
 /*   Function: getPlace
      Return the parsed value of a number in a certain position 
@@ -32,6 +35,9 @@ var norwegianNumberParser = function(){
 		if (n == 0 && ignore0){
 			out = '';
 		}
+		else if (n < 5){
+			out = masculineSingles[n];
+		}
 		else if (n <= 20){
 			out = numbers[n];
 		}
@@ -40,7 +46,7 @@ var norwegianNumberParser = function(){
 				out = getPlace(n,0,10);
 			}
 			else{
-				out = getPlace(n,0,10) + getPlace(n,1,1);
+				out = getPlace(n,0,10) + ' ' +numbers.conjunction+ ' ' + masculineSingles[n.toString()[1]];
 			}
 		}
 		return out;
@@ -121,4 +127,4 @@ var norwegianNumberParser = function(){
 	return my;
 }
 
-module.exports = new norwegianNumberParser;
+module.exports = new icelandicNumberParser;
