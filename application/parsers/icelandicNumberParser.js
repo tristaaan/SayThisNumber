@@ -30,12 +30,12 @@ var icelandicNumberParser = function(){
 		return numbers[parseInt(n.toString()[which])*scale];
 	}
 
-	function parse10s(n, ignore0){
+	function parse10s(n, masc){
 		var out = '';
-		if (n == 0 && ignore0){
-			out = '';
+		if (n == 0){
+			out = numbers[0];
 		}
-		else if (n < 5){
+		else if (n < 5 && masc){
 			out = masculineSingles[n];
 		}
 		else if (n <= 20){
@@ -45,6 +45,9 @@ var icelandicNumberParser = function(){
 			if (n % 10 == 0){
 				out = getPlace(n,0,10);
 			}
+      else if (n % 10 >= 5){
+        out = getPlace(n,0,10) + ' ' +numbers.conjunction+ ' ' + getPlace(n,1,1);
+      }
 			else{
 				out = getPlace(n,0,10) + ' ' +numbers.conjunction+ ' ' + masculineSingles[n.toString()[1]];
 			}
@@ -58,7 +61,7 @@ var icelandicNumberParser = function(){
 			out = getPlace(n, 0, 1) + ' ' + numbers[100];
 		}
 		else{
-			out = getPlace(n, 0, 1) + ' ' + numbers[100] + ' ' +numbers.conjunction+ ' ' + parse10s(parseInt(n.toString().substr(1,2)), true);
+			out = getPlace(n, 0, 1) + ' ' + numbers[100] + ' ' +numbers.conjunction+ ' ' + parse10s(parseInt(n.toString().substr(1,2)));
 		}
 
 		return out;
@@ -80,10 +83,10 @@ var icelandicNumberParser = function(){
 				piece = andSingle(piece);
 			}
 			else{
-				piece = my.parseNumber(parseInt(piece));
+				piece = my.parseNumber(parseInt(piece), ctr < 3);
 			}
 
-			out = piece + ' ' + (ctr >= 3 ? numbers[Math.pow(10,ctr)]:'') + ' ' + out;
+			out = piece + ' ' + (ctr >= 3 ? numbers[Math.pow(10,ctr)] : '') + ' ' + out;
 
 			nStr = nStr.substr(0,nStr.length-3);
 			ctr += 3;
@@ -93,10 +96,10 @@ var icelandicNumberParser = function(){
 	}
 
 	function andSingle(n){
-		return numbers.conjunction+ ' ' + my.parseNumber(n);
+		return numbers.conjunction+ ' ' + my.parseNumber(n, true);
 	}
 
-	my.parseNumber = function(n){
+	my.parseNumber = function(n, masc){
 		var out = '';
 		var negative = n < 0;
 
@@ -105,7 +108,7 @@ var icelandicNumberParser = function(){
 		}
 
 		if (n < 100){
-			out = parse10s(n, false);
+			out = parse10s(n, masc);
 		}
 		else if (n < 1000){
 			out = parse100s(n);
