@@ -1,0 +1,10 @@
+doctype html
+html
+	head
+		title #{range} in #{language}
+	body
+		if parsedNumbers
+			each val in parsedNumbers
+				h3 #{val}
+		else if error
+			h3 #{error}
