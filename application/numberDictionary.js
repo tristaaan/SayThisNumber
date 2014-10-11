@@ -1,7 +1,7 @@
 var numberDictionary = (function(){
 	var parsers = {
 		english:   require('./parsers/englishNumberParser'),
-		czech:     require('./parsers/czechNumberParser')
+		czech:     require('./parsers/czechNumberParser'),
     french:    require('./parsers/frenchNumberParser'),
     icelandic: require('./parsers/icelandicNumberParser'),
     italian:   require('./parsers/italianNumberParser'),
@@ -14,10 +14,12 @@ var numberDictionary = (function(){
 
 	this.parseNumberForLanguage = function(n,l){
 		console.log(n, l);
-		if (this.hasLanguage(l))
+		if (this.hasLanguage(l)){
 			return parsers[l].parseNumber(n);
-		else
-			return 'language unsupported'
+    }
+		else {
+			return 'language unsupported';
+    }
 	}
 	
 	this.hasLanguage = function(l){
@@ -33,6 +35,6 @@ var numberDictionary = (function(){
 	}
 
 	return this;
-})()
+})();
 
 module.exports = numberDictionary;
