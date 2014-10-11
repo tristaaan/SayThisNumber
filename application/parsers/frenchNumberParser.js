@@ -32,10 +32,10 @@ var frenchNumberParser = function(){
 		if (n == 0 && ignore0){
 			out = '';
 		}
-		else if (n <= 20 || n % 10 == 0){
+		else if (n <= 20 || (n % 10 == 0 && n != 80)){
 			out = numbers[n];
 		}
-    else if (n % 10 == 1 && Math.floor(n/10) != 7 && Math.floor(n/10) != 9){
+    else if (n % 10 == 1 && Math.floor(n/10) != 7 && Math.floor(n/10) != 9 && n != 81){
       out = numbers[Math.floor(n/10)*10] + ' ' + numbers.conjunction + ' ' + numbers[1];
     }
 		else if (n > 20 && n < 60 && n % 10 > 1){
@@ -44,7 +44,10 @@ var frenchNumberParser = function(){
     else if (n > 60 && n < 80){
       out = numbers[60] + numbers.seperator + numbers[n-60];
     }
-    else if (n >= 80 && n < 100){
+    else if (n == 80){
+      out = numbers[80] + 's';
+    }
+    else if (n >= 81 && n < 100){
       out = numbers[80] + numbers.seperator + numbers[n-80];
     }
 
@@ -56,6 +59,9 @@ var frenchNumberParser = function(){
 		if (n == 100){
 			out = numbers[100];
 		}
+    else if (n == 200 && n < 300){
+      out = numbers[2] + ' ' + numbers[100] + 's';
+    }
 		else if (n % 100 == 0 && Math.floor(n/100) > 1){
 			out = getPlace(n, 0, 1) + ' ' + numbers[100];
 		}
@@ -90,11 +96,19 @@ var frenchNumberParser = function(){
 
 			numberString = numberString.substr(0,numberString.length-3);
 			counter += 3;
-      console.log(out);
 		}
+
     var isPlural = parseInt(numberString.substr(0,3)) > 1 ? 's ' : ' ';
-		out = my.parseNumber(numberString.substr(0,3)) + ' ' + numbers[Math.pow(10, counter)] + isPlural + out;
-    console.log(out);
+    var suffix = numbers[Math.pow(10, counter)] + isPlural;
+
+    //specific: 1000 => mille, 2000 => duex milles
+    if (counter == 3 && parseInt(numberString.substr(0,3)) == 1){
+      out = suffix + out;
+    }
+    else{
+      var prefix = my.parseNumber(numberString.substr(0,3))
+		  out = prefix + ' ' + suffix + out;
+    }
 		return out;
 	}
 
