@@ -13,7 +13,7 @@ var spanishNumberParser = function(){
 		11:'once', 12:'doce', 13:'trece', 14:'catorce', 15: 'quince',
 		20:'veinte',
 		30:'treinta', 40:'cuarenta', 50:'cincuenta', 60:'sesenta', 70:'setenta', 80:'ochenta', 90:'noventa', 100:'cien',
-		500: 'quinientos',
+		500: 'quinientos', 700:'setecientos', 900: 'novecientos',
 		1000: 'mil', 1000000:'millón', 1000000000:'millardo', 1000000000000:'billón'};
 
 /*   Function: getPlace
@@ -36,7 +36,7 @@ var spanishNumberParser = function(){
 			out = numbers[n];
 		}
 		else if (n > 15 && n < 20){
-			out = numbers[10] + numbers.conjunction + getPlace(n,1,1);
+			out = numbers[10] + ' ' + numbers.conjunction + ' ' + getPlace(n,1,1);
 		}
 		else{
 			if (n % 10 == 0){
@@ -55,19 +55,19 @@ var spanishNumberParser = function(){
 			out = numbers[100];
 		}
 		else if (n % 100 == 0 && Math.floor(n/100) > 1){
-			if (n == 500){
-				out = numbers[500];
+			if (n == 500 || n == 700 || n == 900){
+				out = numbers[n];
 			}
 			else {
-				out = getPlace(n, 0, 1) + ' ' + numbers[100] + 'to';
+				out = getPlace(n, 0, 1) + numbers[100] + 'tos';
 			}
 		}
 		else if (Math.floor(n/100) > 1){
-			if (n > 500 && n < 600){
-				out = numbers[500] + ' ' + parse10s(parseInt(n.toString().substr(1,2)), true);
+			if (inRange(n, 500, 600) || inRange(n, 700, 800) || inRange(n, 900, 1000)){
+				out = numbers[Math.floor(n/100)*100] + ' ' + parse10s(parseInt(n.toString().substr(1,2)), true);
 			}
 			else{
-				out = getPlace(n, 0, 1) + ' ' + numbers[100] + 'to ' + parse10s(parseInt(n.toString().substr(1,2)), true);
+				out = getPlace(n, 0, 1) + numbers[100] + 'tos ' + parse10s(parseInt(n.toString().substr(1,2)), true);
 			}
 		}
 		else {
@@ -108,6 +108,10 @@ var spanishNumberParser = function(){
 	function andSingle(n){
 		return numbers.conjunction+ ' ' + my.parseNumber(n);
 	}
+
+  function inRange(n, lower, upper){
+    return n > lower && n < upper;
+  }
 
 	my.parseNumber = function(n){
 		var out = '';
