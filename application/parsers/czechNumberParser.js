@@ -17,7 +17,7 @@ var czechNumberParser = function(){
 		100:'sto', 200: 'dvě stě', 300: 'tři sta', 400: 'čtyři sta', 500: 'pět set', 
 		600: 'šest set', 700:'sedm set', 800: 'osm set', 900: 'devět set',
 		1000: 'tisíc', 2000: 'dva tisíce', 3000: 'tři tisíce', 4000: 'čtyři tisíce', 
-		1000000:'milion/miliony/milionů', 1000000000:'miliard/miliardy', 1000000000000:'bilion/biliony/bilionů'};
+		1000000:'milion/miliony/milionů', 1000000000:'miliarda/miliardy/miliard', 1000000000000:'bilion/biliony/bilionů'};
 
 /*   Function: getPlace
      Return the parsed value of a number in a certain position 
@@ -104,6 +104,7 @@ var czechNumberParser = function(){
 
 		return out.trim();
 	}
+
 
 	return my;
 }

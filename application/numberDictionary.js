@@ -1,7 +1,7 @@
 var numberDictionary = (function(){
 	var parsers = {
-		english:   require('./parsers/englishNumberParser'),
-		czech:     require('./parsers/czechNumberParser'),
+	english:   require('./parsers/englishNumberParser'),
+	czech:     require('./parsers/czechNumberParser'),
     french:    require('./parsers/frenchNumberParser'),
     icelandic: require('./parsers/icelandicNumberParser'),
     italian:   require('./parsers/italianNumberParser'),
