@@ -1,15 +1,19 @@
 var numberDictionary = (function(){
 	var parsers = {
-	english:   require('./parsers/englishNumberParser'),
-	czech:     require('./parsers/czechNumberParser'),
-    french:    require('./parsers/frenchNumberParser'),
-    icelandic: require('./parsers/icelandicNumberParser'),
-    italian:   require('./parsers/italianNumberParser'),
-    japanese:  require('./parsers/japaneseNumberParser'),
-    norwegian: require('./parsers/norwegianNumberParser'),
-    russian:   require('./parsers/russianNumberParser'),
-    spanish:   require('./parsers/spanishNumberParser'),
-    swedish:   require('./parsers/swedishNumberParser')
+	english:              require('./parsers/englishNumberParser'),
+	czech:                require('./parsers/czechNumberParser'),
+	french:               require('./parsers/frenchNumberParser'),
+	icelandic:            require('./parsers/icelandicNumberParser'),
+	italian:              require('./parsers/italianNumberParser'),
+	japanese:             require('./parsers/japaneseNumberParser'),
+	norwegian:            require('./parsers/norwegianNumberParser'),
+	russian:              require('./parsers/russianNumberParser'),
+	spanish:              require('./parsers/spanishNumberParser'),
+	swedish:              require('./parsers/swedishNumberParser')
+	german:               require('./parsers/germanNumberParser')
+	chineseSimplified:    require('./parsers/chineseNumeralsSimplifiedNumberParser')
+	chineseTraditional:   require('./parsers/chineseNumeralsTraditionalNumberParser')
+	chinesePinyin:        require('./parsers/chinesePinyinNumberParser')
 	};
 
 	this.parseNumberForLanguage = function(n,l){
