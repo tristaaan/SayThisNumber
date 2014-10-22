@@ -16,7 +16,7 @@ var chineseHanziSimplifiedNumberParser = function(){
 		100:'百',1000:'千',10000:'万', 100000000:'亿', 1000000000000:'兆'};
 	var zero = "零";
 
-	r_parse=function(n,max_place)
+	function r_parse(n,max_place)
 	{
 		if (n in exceptions) return exceptions[n];
 		if (max_place==1 || n in numbers) return numbers[n];

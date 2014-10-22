@@ -16,7 +16,7 @@ var chineseHanziSimplifiedNumberParser = function(){
 		100:'bǎi',1000:'qiān',10000:'wàn', 100000000:'yì', 1000000000000:'zhào'};
 	var zero = "líng";
 
-	r_parse=function(n,max_place)
+	function r_parse(n,max_place)
 	{
 		if (n in exceptions) return exceptions[n];
 		if (max_place==1 || n in numbers) return numbers[n];

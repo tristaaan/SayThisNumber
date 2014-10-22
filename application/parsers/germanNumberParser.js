@@ -16,7 +16,7 @@ var germanNumberParser = function(){
 		100:'hundert',1000:'tausend',1000000:'Million ', 1000000000:'Millarde ', 1000000000000:'Billion ',1000000000000000:'Billiarde '};
 
 
-	r_parse=function(n,max_place,feminine)
+	function r_parse(n,max_place,feminine)
 	{
 		if (feminine && n==1 ) return one_feminine;
 		if (n in exceptions) return exceptions[n]+(feminine?" ":"");

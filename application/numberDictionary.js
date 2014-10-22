@@ -9,10 +9,10 @@ var numberDictionary = (function(){
 	norwegian:            require('./parsers/norwegianNumberParser'),
 	russian:              require('./parsers/russianNumberParser'),
 	spanish:              require('./parsers/spanishNumberParser'),
-	swedish:              require('./parsers/swedishNumberParser')
-	german:               require('./parsers/germanNumberParser')
-	chineseSimplified:    require('./parsers/chineseNumeralsSimplifiedNumberParser')
-	chineseTraditional:   require('./parsers/chineseNumeralsTraditionalNumberParser')
+	swedish:              require('./parsers/swedishNumberParser'),
+	german:               require('./parsers/germanNumberParser'),
+	chineseSimplified:    require('./parsers/chineseNumeralsSimplifiedNumberParser'),
+	chineseTraditional:   require('./parsers/chineseNumeralsTraditionalNumberParser'),
 	chinesePinyin:        require('./parsers/chinesePinyinNumberParser')
 	};
 
