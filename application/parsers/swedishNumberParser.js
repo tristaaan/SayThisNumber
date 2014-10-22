@@ -8,7 +8,7 @@ var swedishNumberParser = function(){
 		30:'trettio', 40:'fyrtio', 50:'femtio', 60:'sextio', 70:'sjuttio', 80:'åttio', 90:'nittio', 100:'hundra',
 		1000: 'tusen', 1000000:'miljon', 1000000000:'miljard', 1000000000000:'biljon', 1000000000000000:'biljard'};
 		
-function getPlace(n, which, scale){
+	function getPlace(n, which, scale){
 		return numbers[parseInt(n.toString()[which])*scale];
 	}
 
