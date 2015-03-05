@@ -22,7 +22,6 @@ var numberDictionary = (function(){
         console.log(n, l);
         if (!this.hasLanguage(l)){
             return 'language unsupported';
-
         }
         else if (n > Math.pow(10, 15)){
             return 'number too large';

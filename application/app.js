@@ -88,7 +88,7 @@ function responseForNumberRange(req){
         'language': language, 
         'range':start.toString() + " to " + end.toString(),    
     }
-    if (errorMessage.length == 0){
+    if (errorMessage.length === 0){
         res['parsedNumbers'] = getNumbersInRangeOfLanguage(start,end,language)
     }
     else{
@@ -108,7 +108,7 @@ function parseRange(rangeArray){
     var parsedArray = [];
     var isNegative = false;
     for (var i=0; i<rangeArray.length && parsedArray.length < 2; i++){
-        if (rangeArray[i] == ""){
+        if (rangeArray[i] === ''){
             isNegative = !isNegative;
             continue;
         }
@@ -126,19 +126,26 @@ function parseRange(rangeArray){
 
 function checkRange(start, end, language){
     if (Math.abs(end-start) > 5000){
-        return "Range is too large";
+        return 'range is too large';
+    }
+    else if (start > Math.pow(10,15)){
+        return 'start of range is too large';
+    }
+    else if (start < -Math.pow(10,15)){
+        return 'start of range is too small';
     }
     else if (start >= end){
-        return "Range is too small or reversed";
+        return 'range is too small or reversed';
     }
     else if (!numberDictionary.hasLanguage(language)){
-        return "Language unsupported";
+        return 'language unsupported';
     }
     return "";
 }
 
 function getNumbersInRangeOfLanguage(start, end, language){
     var numbers = []
+    end = Math.min(end, Math.pow(10,15)+1);
     for (var i=start; i<=end; i++){
         numbers.push(getNumberInLanguage(i, language));
     }
