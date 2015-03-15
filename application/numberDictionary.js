@@ -15,7 +15,8 @@ var numberDictionary = (function(){
         german:               require('./parsers/germanNumberParser'),
         chineseSimplified:    require('./parsers/chineseNumeralsSimplifiedNumberParser'),
         chineseTraditional:   require('./parsers/chineseNumeralsTraditionalNumberParser'),
-        chinesePinyin:        require('./parsers/chinesePinyinNumberParser')
+        chinesePinyin:        require('./parsers/chinesePinyinNumberParser'),
+        dutch:                require('./parsers/dutchNumberParser')
     };
 
     this.parseNumberForLanguage = function(n,l){
