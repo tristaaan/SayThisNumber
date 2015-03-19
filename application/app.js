@@ -4,72 +4,77 @@ var numberDictionary = require('./numberDictionary');
 var langCount = numberDictionary.numberOfSupportedLanguages();
 var languages = numberDictionary.supportedLanguages();
 
-// Configuration
+var singleNumberRegExp = /^-*\d+$/;
+var numberRangeRegExp = /^-*(\d+)-+(\d+)$/;
+
 var app = express();
-
-app.configure( function() {
-    app.set('view engine', 'jade');
-    app.set('views', __dirname + '/../views');
-});
-
-//From express documentation
-app.param(function(name, fn){
-    if (fn instanceof RegExp) {
-        return function(req, res, next, val){
-            var captures;
-            if (captures = fn.exec(String(val))) {
-                req.params[name] = captures;
-                next();
-            } 
-            else {
-                next('route');
-            }
-        }
-    }
-});
-
-app.param('language', /^\w+$/); //some word
-app.param('number', /^-*\d+$/); //(negative) some number
-app.param('range', /^-*(\d+)-+(\d+)$/); //(negative?) some number - (negative?) some number
+app.set('view engine', 'jade');
+app.set('views', __dirname + '/../views');
 
 //GET responses
 //home page
-app.get('/', function(req, res){
-    res.render('index.jade', {'languageCount': langCount, 'languages': languages});
-});
+app.route('/')
+    .get(function(req, res){
+        res.render('index.jade', {'languageCount': langCount, 'languages': languages});
+    })
+    .post(function(req, res){
+        res.send({
+            'error': 'usage: `curl [address]/[language]/[number]`'
+        }); 
+    });
 
-//single number
-app.get('/:language/:number', function(req, res){
-    res.render('number.jade', responseForSingleNumber(req));
-});
+//just a language
+app.route('/:language')
+    .get(function(req, res){
+        res.render('number.jade', {
+            language: req.params.language,
+            number: 'none',
+            parsedNumber: 'no number provided'
+        });
+    })
+    .post(function(req, res){
+        res.send({
+            'error': 'usage: `curl [address]/[language]/[number]`'
+        }); 
+    });
 
-//number range
-app.get('/:language/:range', function(req, res){
-    res.render('number-range.jade', responseForNumberRange(req));
-});
+app.route('/:language/:number')
+    .get( function(req, res){
+        if (singleNumberRegExp.test(req.params.number)){
+            res.render('number.jade', responseForSingleNumber(req));
+        }
+        else if (numberRangeRegExp.test(req.params.number)){
+            res.render('number-range.jade', responseForNumberRange(req));
+        }
+        else{
+            res.render('number.jade', {
+                language: req.params.language,
+                number: 'none',
+                parsedNumber: 'invalid number'
+            });
+        }
+    })
+    .post( function(req,res){
+        if (singleNumberRegExp.test(req.params.number)){
+            res.send(responseForSingleNumber(req));
+        }
+        else if (numberRangeRegExp.test(req.params.number)){
+            res.send(responseForNumberRange(req));
+        }
+        else{
+            res.send({'error': 'invalid number'});
+        }
+    });
 
-//POSTS responses for API
-//post to index returns error
-app.post('/', function(req, res){
-    res.send({
-        'error': 'usage: `curl [address]/[language]/[number]`'
-    }); 
-});
-
-//single number
-app.post('/:language/:number', function(req, res){
-    res.send(responseForSingleNumber(req));
-});
-
-//number range
-app.post('/:language/:range', function(req, res){
-    res.send(responseForNumberRange(req))
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Malformed URL');
 });
 
 //Processing
 function responseForSingleNumber(req){
-    var language = req.params.language[0];
-    var number = parseInt(req.params.number[0]);
+    var language = req.params.language;
+    var number = parseInt(req.params.number);
     return {
         'language': language,
         'number': number,
@@ -78,8 +83,8 @@ function responseForSingleNumber(req){
 }
 
 function responseForNumberRange(req){
-    var language = req.params.language[0];
-    var range = parseRange(req.params.range[0].split("-"));
+    var language = req.params.language;
+    var range = parseRange(req.params.number.split("-"));
     var start  = range[0];
     var end = range[1];
     var errorMessage = checkRange(start, end, language);
