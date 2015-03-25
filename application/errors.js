@@ -7,5 +7,7 @@ module.exports = {
 	startTooSmall: 'start of range is too small',
 	startTooLarge: 'start of range is too large',
 	invalidRange: 'range is too small or reversed',
-	invalidURL: 'Malformed URL'
+	invalidURL: 'Malformed URL',
+	numberTooSmall: 'number too small',
+	numberTooLarge: 'number too large'
 };

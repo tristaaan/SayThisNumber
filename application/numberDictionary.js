@@ -1,3 +1,4 @@
+var errors = require('./errors');
 var numberDictionary = (function(){
     var parsers = {
         english:              require('./parsers/englishNumberParser'),
@@ -22,10 +23,13 @@ var numberDictionary = (function(){
     this.parseNumberForLanguage = function(n,l){
         console.log(n, l);
         if (!this.hasLanguage(l)){
-            return 'language unsupported';
+            return errors.unsupported;
         }
         else if (n > Math.pow(10, 15)){
-            return 'number too large';
+            return errors.numberTooLarge;
+        }
+        else if (n < -Math.pow(10, 15)){
+            return errors.numberTooSmall;
         }
         else {
             return parsers[l].parseNumber(n);   
