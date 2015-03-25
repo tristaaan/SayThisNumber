@@ -2,7 +2,7 @@
   "name": "saythisnumber",
   "version": "0.2.0",
   "main": "index.js",
-  "scripts":{
+  "scripts": {
     "test": "mocha",
     "start": "node index.js"
   },
@@ -15,5 +15,7 @@
     "express": "~4.12.3"
   },
   "devDependencies": {
+    "mocha": "^2.2.1",
+    "supertest": "^0.15.0"
   }
 }
