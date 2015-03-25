@@ -2,6 +2,10 @@
   "name": "saythisnumber",
   "version": "0.2.0",
   "main": "index.js",
+  "scripts":{
+    "test": "mocha",
+    "start": "node index.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/tristaaan/SayThisNumber"
