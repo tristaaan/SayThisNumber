@@ -75,11 +75,19 @@ app.use(function(err, req, res, next) {
 function responseForSingleNumber(req){
     var language = req.params.language;
     var number = parseInt(req.params.number);
-    return {
+    var response = {
         'language': language,
-        'number': number,
-        'parsedNumber': getNumberInLanguage(number, language)
+        'number': number
     };
+    var parsedNumber = getNumberInLanguage(number, language);
+
+    if (parsedNumber === errors.numberTooLarge || parsedNumber === errors.numberTooSmall){
+        response['error'] = parsedNumber;
+    }
+    else{
+        response['parsedNumber'] = parsedNumber;
+    }
+    return response;
 }
 
 function responseForNumberRange(req){
