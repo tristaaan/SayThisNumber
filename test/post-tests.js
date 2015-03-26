@@ -39,14 +39,18 @@ describe('POST tests', function(){
   });
     it('should respond with range too large error', function(done){
     async.series([
-      function(cb){ agent.post('/english/0-5001').expect(checkJSON.bind(null, 'error', errors.rangeTooLarge)).expect(200, cb)},
-      function(cb){ agent.post('/norwegian/-2500-3000').expect(checkJSON.bind(null, 'error', errors.rangeTooLarge)).expect(200, cb)}
+      function(cb){ agent.post('/english/0-5001').expect('Content-Type', /json/)
+        .expect(checkJSON.bind(null, 'error', errors.rangeTooLarge)).expect(200, cb)},
+      function(cb){ agent.post('/norwegian/-2500-3000').expect('Content-Type', /json/)
+        .expect(checkJSON.bind(null, 'error', errors.rangeTooLarge)).expect(200, cb)}
     ], done);
   });
   it('should respond with invalid range error', function(done){
     async.series([
-      function(cb){ agent.post('/italian/1-1').expect(checkJSON.bind(null, 'error', errors.invalidRange)).expect(200, cb)},
-      function(cb){ agent.post('/czech/10-1').expect(checkJSON.bind(null, 'error', errors.invalidRange)).expect(200, cb)}
+      function(cb){ agent.post('/italian/1-1').expect('Content-Type', /json/)
+        .expect(checkJSON.bind(null, 'error', errors.invalidRange)).expect(200, cb)},
+      function(cb){ agent.post('/czech/10-1').expect('Content-Type', /json/)
+        .expect(checkJSON.bind(null, 'error', errors.invalidRange)).expect(200, cb)}
     ], done);
   });
   it('should respond with start of range too small or large', function(done){
@@ -59,8 +63,10 @@ describe('POST tests', function(){
   });
   it('should contain a number too small or large error', function(done){
     async.series([
-      function(cb){ agent.post('/english/'+(Math.pow(10,15)+1)).expect(checkJSON.bind(null, 'error', errors.numberTooLarge)).expect(200, cb)},
-      function(cb){ agent.post('/english/'+(-Math.pow(10,15)-1)).expect(checkJSON.bind(null, 'error', errors.numberTooSmall)).expect(200, cb)}
+      function(cb){ agent.post('/english/'+(Math.pow(10,15)+1)).expect('Content-Type', /json/)
+        .expect(checkJSON.bind(null, 'error', errors.numberTooLarge)).expect(200, cb)},
+      function(cb){ agent.post('/english/'+(-Math.pow(10,15)-1)).expect('Content-Type', /json/)
+        .expect(checkJSON.bind(null, 'error', errors.numberTooSmall)).expect(200, cb)}
     ], done);
   });
 });

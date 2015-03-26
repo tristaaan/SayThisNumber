@@ -23,27 +23,36 @@ describe('GET tests', function(){
   });
   it('should respond with no number error', function(done){
     async.series([
-      function(cb){ agent.get('/foo').expect(checkText.bind(null, errors.noNumber)).expect(200, cb)},
-      function(cb){ agent.get('/dutch').expect(checkText.bind(null, errors.noNumber)).expect(200, cb)},
-      function(cb){ agent.get('/english/').expect(checkText.bind(null, errors.noNumber)).expect(200, cb)},
+      function(cb){ agent.get('/foo')
+        .expect(checkText.bind(null, errors.noNumber)).expect(200, cb)},
+      function(cb){ agent.get('/dutch')
+        .expect(checkText.bind(null, errors.noNumber)).expect(200, cb)},
+      function(cb){ agent.get('/english/')
+        .expect(checkText.bind(null, errors.noNumber)).expect(200, cb)},
     ], done);
   });
   it('should respond with invalid number error', function(done){
     async.series([
-      function(cb){ agent.get('/english/hello').expect(checkText.bind(null, errors.invalidNumber)).expect(200, cb)},
-      function(cb){ agent.get('/english/23f')  .expect(checkText.bind(null, errors.invalidNumber)).expect(200, cb)}
+      function(cb){ agent.get('/english/hello')
+        .expect(checkText.bind(null, errors.invalidNumber)).expect(200, cb)},
+      function(cb){ agent.get('/english/23f')  
+        .expect(checkText.bind(null, errors.invalidNumber)).expect(200, cb)}
     ], done);
   });
   it('should respond with range too large error', function(done){
     async.series([
-      function(cb){ agent.get('/english/0-5001').expect(checkText.bind(null, errors.rangeTooLarge)).expect(200, cb)},
-      function(cb){ agent.get('/norwegian/-2500-3000').expect(checkText.bind(null, errors.rangeTooLarge)).expect(200, cb)}
+      function(cb){ agent.get('/english/0-5001')
+        .expect(checkText.bind(null, errors.rangeTooLarge)).expect(200, cb)},
+      function(cb){ agent.get('/norwegian/-2500-3000')
+        .expect(checkText.bind(null, errors.rangeTooLarge)).expect(200, cb)}
     ], done);
   });
   it('should respond with invalid range error', function(done){
     async.series([
-      function(cb){ agent.get('/italian/1-1').expect(checkText.bind(null, errors.invalidRange)).expect(200, cb)},
-      function(cb){ agent.get('/czech/10-1').expect(checkText.bind(null, errors.invalidRange)).expect(200, cb)}
+      function(cb){ agent.get('/italian/1-1')
+        .expect(checkText.bind(null, errors.invalidRange)).expect(200, cb)},
+      function(cb){ agent.get('/czech/10-1')
+        .expect(checkText.bind(null, errors.invalidRange)).expect(200, cb)}
     ], done);
   });
   it('should respond with start of range too small or large', function(done){
@@ -56,8 +65,10 @@ describe('GET tests', function(){
   });
   it('should contain a number too small or large error', function(done){
     async.series([
-      function(cb){ agent.get('/english/'+(Math.pow(10,15)+1)).expect(checkText.bind(null, errors.numberTooLarge)).expect(200, cb)},
-      function(cb){ agent.get('/english/'+(-Math.pow(10,15)-1)).expect(checkText.bind(null, errors.numberTooSmall)).expect(200, cb)}
+      function(cb){ agent.get('/english/'+(Math.pow(10,15)+1))
+        .expect(checkText.bind(null, errors.numberTooLarge)).expect(200, cb)},
+      function(cb){ agent.get('/english/'+(-Math.pow(10,15)-1))
+        .expect(checkText.bind(null, errors.numberTooSmall)).expect(200, cb)}
     ], done);
   });
 });
