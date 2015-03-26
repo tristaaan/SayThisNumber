@@ -5,7 +5,7 @@ var async = require('async');
 var app = require('../application/app.js');
 var errors = require('../application/errors.js');
 
-describe('POST tests', function(){
+describe('POST error tests', function(){
   var agent = request(app);
   it('should respond with usage error', function(done){
     async.series([
@@ -71,6 +71,30 @@ describe('POST tests', function(){
   });
 });
 
+describe('POST success tests', function(){
+  var agent = request(app);
+  it('should respond with a number', function(done){
+    async.series([
+      function(cb){agent.post('/english/1').expect('Content-Type', /json/)
+        .expect(checkJSON.bind(null, 'parsedNumber', 'one')).expect(200, cb);},
+      function(cb){agent.post('/english/-1').expect('Content-Type', /json/)
+        .expect(checkJSON.bind(null, 'parsedNumber', 'negative one')).expect(200, cb);}
+    ], done);
+  });
+  it('should respond with a range', function(done){
+    async.series([
+      function(cb){agent.post('/english/1-3').expect('Content-Type', /json/)
+        .expect(checkRangeInJSON.bind(null, 'parsedNumbers', ['one','two','three'])).expect(200, cb);},
+      function(cb){agent.post('/english/-1-1').expect('Content-Type', /json/)
+        .expect(checkRangeInJSON.bind(null, 'parsedNumbers', ['negative one','zero','one'])).expect(200, cb);},
+      function(cb){agent.post('/english/---1-1').expect('Content-Type', /json/)
+        .expect(checkRangeInJSON.bind(null, 'parsedNumbers', ['negative one','zero','one'])).expect(200, cb);},
+      function(cb){agent.post('/english/-3--1').expect('Content-Type', /json/)
+        .expect(checkRangeInJSON.bind(null, 'parsedNumbers', ['negative three','negative two','negative one'])).expect(200, cb);}
+    ], done);
+  });
+});
+
 function checkText(checker, res){
   if (RegExp(checker).test(res.text)){
     return;
@@ -87,5 +111,19 @@ function checkJSON(key, checker, res){
   }
   else{
     throw '"' + key + '":"' + checker + '" not found in response';
+  }
+}
+
+function checkRangeInJSON(key, checker, res){
+  var json = JSON.parse(res.text);
+  var ret = json[key].every(function(el, index){
+    return el === checker[index];
+  });
+
+  if (ret){
+    return;
+  }
+  else{
+    return '"[' + checker.toString() + ']" not found in response';
   }
 }

@@ -5,17 +5,10 @@ var async = require('async');
 var app = require('../application/app.js');
 var errors = require('../application/errors.js');
 
-describe('GET tests', function(){
+describe('GET error tests', function(){
   var agent = request(app);
-  it('should respond with the index page', function(done){
-    request(app)
-    .get('/')
-    .expect(200)
-    .expect(checkText.bind(null, "Say This Number"))
-    .end(done);
-  });
   it('should respond with malformed url', function(done){
-    request(app)
+    agent
     .get('/foo%')
     .expect(500)
     .expect(checkText.bind(null, errors.invalidURL))
@@ -69,6 +62,35 @@ describe('GET tests', function(){
         .expect(checkText.bind(null, errors.numberTooLarge)).expect(200, cb)},
       function(cb){ agent.get('/english/'+(-Math.pow(10,15)-1))
         .expect(checkText.bind(null, errors.numberTooSmall)).expect(200, cb)}
+    ], done);
+  });
+});
+
+describe('GET success tests', function(){
+  var agent = request(app);
+  it('should respond with the index page', function(done){
+    agent
+    .get('/')
+    .expect(200)
+    .expect(checkText.bind(null, 'Say This Number'))
+    .end(done);
+  });
+  it('should respond with a number', function(done){
+    async.series([
+      function(cb){agent.get('/english/1').expect(checkText.bind(null, 'one')).expect(200, cb);},
+      function(cb){agent.get('/english/-1').expect(checkText.bind(null, 'negative one')).expect(200, cb);}
+    ], done);
+  });
+  it('should respond with a range', function(done){
+    async.series([
+      function(cb){agent.get('/english/1-3')
+        .expect(checkText.bind(null, 'one(.*)two(.*)three')).expect(200, cb);},
+      function(cb){agent.get('/english/-1-1')
+        .expect(checkText.bind(null, 'negative one(.*)zero(.*)one')).expect(200, cb);},
+      function(cb){agent.get('/english/---1-1')
+        .expect(checkText.bind(null, 'negative one(.*)zero(.*)one')).expect(200, cb);},
+      function(cb){agent.get('/english/-3--1')
+        .expect(checkText.bind(null, 'negative three(.*)negative two(.*)negative one')).expect(200, cb);}
     ], done);
   });
 });
