@@ -3,4 +3,7 @@ html
 	head
 		title #{number} in #{language}
 	body
-		h3 #{parsedNumber}
+		if parsedNumber
+			h3 #{parsedNumber}
+		else if error
+			h3 #{error}

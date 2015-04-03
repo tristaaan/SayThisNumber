@@ -1,7 +1,11 @@
 {
   "name": "saythisnumber",
-  "version": "0.2.0",
+  "version": "0.5.0",
   "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node index.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/tristaaan/SayThisNumber"
@@ -11,5 +15,8 @@
     "express": "~4.12.3"
   },
   "devDependencies": {
+    "mocha": "^2.2.1",
+    "supertest": "^0.15.0",
+    "async": "^0.9.0"
   }
 }

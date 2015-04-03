@@ -1,5 +1,6 @@
 var express = require('express');
 var numberDictionary = require('./numberDictionary');
+var errors = require('./errors');
 
 var langCount = numberDictionary.numberOfSupportedLanguages();
 var languages = numberDictionary.supportedLanguages();
@@ -19,7 +20,7 @@ app.route('/')
     })
     .post(function(req, res){
         res.send({
-            'error': 'usage: `curl [address]/[language]/[number]`'
+            'error': errors.usageError
         }); 
     });
 
@@ -29,12 +30,12 @@ app.route('/:language')
         res.render('number.jade', {
             language: req.params.language,
             number: 'none',
-            parsedNumber: 'no number provided'
+            parsedNumber: errors.noNumber
         });
     })
     .post(function(req, res){
         res.send({
-            'error': 'usage: `curl [address]/[language]/[number]`'
+            'error': errors.usageError
         }); 
     });
 
@@ -50,7 +51,7 @@ app.route('/:language/:number')
             res.render('number.jade', {
                 language: req.params.language,
                 number: 'none',
-                parsedNumber: 'invalid number'
+                parsedNumber: errors.invalidNumber
             });
         }
     })
@@ -62,24 +63,31 @@ app.route('/:language/:number')
             res.send(responseForNumberRange(req));
         }
         else{
-            res.send({'error': 'invalid number'});
+            res.send({'error': errors.invalidNumber});
         }
     });
 
 app.use(function(err, req, res, next) {
-  console.error(err.stack);
-  res.status(500).send('Malformed URL');
+  res.status(500).send(errors.invalidURL);
 });
 
 //Processing
 function responseForSingleNumber(req){
     var language = req.params.language;
     var number = parseInt(req.params.number);
-    return {
+    var response = {
         'language': language,
-        'number': number,
-        'parsedNumber': getNumberInLanguage(number, language)
+        'number': number
     };
+    var parsedNumber = getNumberInLanguage(number, language);
+
+    if (parsedNumber === errors.numberTooLarge || parsedNumber === errors.numberTooSmall){
+        response['error'] = parsedNumber;
+    }
+    else{
+        response['parsedNumber'] = parsedNumber;
+    }
+    return response;
 }
 
 function responseForNumberRange(req){
@@ -131,19 +139,19 @@ function parseRange(rangeArray){
 
 function checkRange(start, end, language){
     if (Math.abs(end-start) > 5000){
-        return 'range is too large';
+        return errors.rangeTooLarge;
     }
     else if (start > Math.pow(10,15)){
-        return 'start of range is too large';
+        return errors.startTooLarge;
     }
     else if (start < -Math.pow(10,15)){
-        return 'start of range is too small';
+        return errors.startTooSmall;
     }
     else if (start >= end){
-        return 'range is too small or reversed';
+        return errors.invalidRange;
     }
     else if (!numberDictionary.hasLanguage(language)){
-        return 'language unsupported';
+        return errors.unsupported;
     }
     return "";
 }
