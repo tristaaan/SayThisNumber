@@ -1,24 +1,24 @@
 var errors = require('./errors');
 var numberDictionary = (function(){
     var parsers = {
-        english:              require('./parsers/englishNumberParser'),
+        chineseSimplified:    require('./parsers/chineseNumeralsSimplifiedNumberParser'),
+        chineseTraditional:   require('./parsers/chineseNumeralsTraditionalNumberParser'),
+        chinesePinyin:        require('./parsers/chinesePinyinNumberParser'),
         czech:                require('./parsers/czechNumberParser'),
+        dutch:                require('./parsers/dutchNumberParser'),
+        english:              require('./parsers/englishNumberParser'),
         french:               require('./parsers/frenchNumberParser'),
+        german:               require('./parsers/germanNumberParser'),
         icelandic:            require('./parsers/icelandicNumberParser'),
         italian:              require('./parsers/italianNumberParser'),
         japaneseHiragana:     require('./parsers/japaneseHiraganaNumberParser'),
         japaneseKanji:        require('./parsers/japaneseKanjiNumberParser'),
         japaneseRomaji:       require('./parsers/japaneseRomajiNumberParser'),
         norwegian:            require('./parsers/norwegianNumberParser'),
+        portuguese:           require('./parsers/portugueseNumberParser'),
         russian:              require('./parsers/russianNumberParser'),
         spanish:              require('./parsers/spanishNumberParser'),
-        swedish:              require('./parsers/swedishNumberParser'),
-        german:               require('./parsers/germanNumberParser'),
-        chineseSimplified:    require('./parsers/chineseNumeralsSimplifiedNumberParser'),
-        chineseTraditional:   require('./parsers/chineseNumeralsTraditionalNumberParser'),
-        chinesePinyin:        require('./parsers/chinesePinyinNumberParser'),
-        dutch:                require('./parsers/dutchNumberParser'),
-        portuguese:                require('./parsers/portugueseNumberParser')
+        swedish:              require('./parsers/swedishNumberParser')
     };
 
     this.parseNumberForLanguage = function(n,l){
