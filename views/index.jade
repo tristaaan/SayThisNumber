@@ -10,15 +10,16 @@ html
     
     h2 Usage: 
     p http://saythisnumber.in/<strong>[language]</strong>/<strong>[n]</strong>|<strong>[n-m]</strong>  <br>
-      | Where <em>n</em> is an integer, and <em>n < m</em> for ranges.
+      | Where <em>n</em> is an integer, and <em>n &lt; m</em> for ranges.
     h3 Examples:
     dl
       dt Single Number
-        dd: a(href='/english/123') http://saythisnumber.in/english/123
-        dd: a(href='/french/1024') http://saythisnumber.in/french/1024
+      dd: a(href='/english/123') http://saythisnumber.in/english/123
+      dd: a(href='/french/1024') http://saythisnumber.in/french/1024
+      
       dt Number Range
-        dd: a(href='/english/0-10') http://saythisnumber.in/english/0-10
-        dd: a(href='/russian/-5-5') http://saythisnumber.in/russian/-5-5
+      dd: a(href='/english/0-10') http://saythisnumber.in/english/0-10
+      dd: a(href='/russian/-5-5') http://saythisnumber.in/russian/-5-5
 
     h2 Supported Languages:
     p There are #{languageCount} supported languages:
