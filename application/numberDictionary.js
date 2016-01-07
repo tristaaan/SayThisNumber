@@ -14,6 +14,7 @@ var numberDictionary = (function(){
         japaneseHiragana:     require('./parsers/japaneseHiraganaNumberParser'),
         japaneseKanji:        require('./parsers/japaneseKanjiNumberParser'),
         japaneseRomaji:       require('./parsers/japaneseRomajiNumberParser'),
+				latin:								require('./parsers/latinNumberParser'),
         norwegian:            require('./parsers/norwegianNumberParser'),
         portuguese:           require('./parsers/portugueseNumberParser'),
         russian:              require('./parsers/russianNumberParser'),
