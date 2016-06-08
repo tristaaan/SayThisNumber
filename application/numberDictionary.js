@@ -8,6 +8,7 @@ var numberDictionary = (function(){
     dutch:                require('./parsers/dutchNumberParser'),
     emoji:                require('./parsers/keycapEmojiParser'),
     english:              require('./parsers/englishNumberParser'),
+    estonian:             require('./parsers/estonianNumberParser'),
     french:               require('./parsers/frenchNumberParser'),
     german:               require('./parsers/germanNumberParser'),
     icelandic:            require('./parsers/icelandicNumberParser'),

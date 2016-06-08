@@ -1,20 +1,20 @@
 /**********************************************************************
-English number parser
-Author: Tristan Wright
-Last edited: March 2014
+Estonian number parser
+Author: Valentin Châtelet
+Last edited: June 2016
 **********************************************************************/
 
 var estonianNumberParser = function(){
 
   var my = {};
 
-  var numbers = {'hasSingle': true, 'conjunction': '', 'negative': 'negative',
-    0:'noll', 1:'üks', 2:'kaks', 3:'kolm', 4:'neli', 5:'viis',
-    6:'kuus', 7:'seitse', 8:'kaheksa', 9:'üheksa', 10:'kümme',
+  var numbers = {'hasSingle': false, 'conjunction': '', 'negative': 'miinus',
+    0:'null', 1:'üks', 2:'kaks', 3:'kolm', 4:'neli', 5:'viis',
+    6:'kuus', 7:'seitse', 8:'kaheksa', 9:'üheksa', 10:'kümmend',
     11:'üksteist', 12:'kaksteist', 13:'kolmteist', 14:'neliteist', 15: 'viisteist',
-    16:'kuusteist', 17:'seitseteist', 18:'kaheksateist', 19:'üheksateist', 20:'kakskümmend',
+    16:'kuusteist', 17:'seitseteist', 18:'kaksateist', 19:'üheksateist', 20:'kakskümmend',
     30:'kolmkümmend', 40:'nelikümmend', 50:'viiskümmend', 60:'kuuskümmend', 70:'seitsekümmend', 80:'kaheksakümmend', 90:'üheksakümmend', 100:'sada',
-    1000: 'tuhat', 1000000:'miljon', 1000000000:'miljard', 1000000000000:'triljion'};
+    1000: 'tuhat', 1000000:'miljon', 1000000000:'miljard', 1000000000000:'biljon', 1000000000000000:'triljon'};
 
 /*   Function: getPlace
      Return the parsed value of a number in a certain position 
@@ -24,7 +24,7 @@ var estonianNumberParser = function(){
      the equivalent of "two" in the target language. */
   
   function getPlace(n, which, scale){
-    return numbers[parseInt(n.toString()[whic])h*scale];
+    return numbers[parseInt(n.toString()[which])*scale];
   }
 
   function parse10s(n, ignore0){
@@ -121,4 +121,4 @@ var estonianNumberParser = function(){
   return my;
 }
 
-module.exports = new englishNumberParser;
+module.exports = new estonianNumberParser;
