@@ -3,25 +3,24 @@ Parses raw numbers into a human language.
 
 ## Usage
 
-```bash
-git clone https://github.com/tristaaan/SayThisNumber.git
-cd SayThisNumber
-npm install
-npm run start # runs a server at 127.0.0.1:8000
+```js
+import sayThisNumber from 'SayThisNumber';
+sayThisNumber(37).in('english'); // => 'thirty seven'
+sayThisNumber(52).in('russian'); // => пятьдесят два'
 ```
 
-The service also supports a basic API through POST requests.
-```bash
-curl -X POST curl -X POST localhost:8000/english/12
+Ranges:
+
+```js
+import sayNumberRange from 'SayThisNumber';
+sayNumberRange(3,1).in('spanish'); // => [ 'tres', 'dos', 'uno', '🚀' ]
 ```
 
-Outputs:
-```json
-{
-  "language": "english",
-  "number": 12,
-  "parsedNumber": "twelve"
-}
+Multiple numbers:
+
+```js
+import sayTheseNumbers from 'SayThisNumber';
+sayTheseNumbers([33, 91]).in('icelandic') // => [ 'þrettán', 'níutíu og sjö' ]
 ```
 
 ## Adding New Languages
