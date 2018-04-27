@@ -1,7 +1,3 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
 var errors = {
   invalidNumber : 'invalid number',
   noNumber      : 'no number provided',
@@ -2072,6 +2068,5 @@ function sayNumberRange(from_n, to_n) {
   return sayTheseNumbers(arr);
 }
 
-exports.default = sayThisNumber;
-exports.sayTheseNumbers = sayTheseNumbers;
-exports.sayNumberRange = sayNumberRange;
+export default sayThisNumber;
+export { sayTheseNumbers, sayNumberRange };

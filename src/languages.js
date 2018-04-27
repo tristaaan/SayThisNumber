@@ -1,6 +1,6 @@
+import chinesePinyin      from './parsers/chinesePinyinNumberParser';
 import chineseSimplified  from './parsers/chineseNumeralsSimplifiedNumberParser';
 import chineseTraditional from './parsers/chineseNumeralsTraditionalNumberParser';
-import chinesePinyin      from './parsers/chinesePinyinNumberParser';
 import czech              from './parsers/czechNumberParser';
 import dutch              from './parsers/dutchNumberParser';
 import emoji              from './parsers/keycapEmojiParser';
@@ -20,9 +20,9 @@ import spanish            from './parsers/spanishNumberParser';
 import swedish            from './parsers/swedishNumberParser';
 
 export default {
+  chinesePinyin,
   chineseSimplified,
   chineseTraditional,
-  chinesePinyin,
   czech,
   dutch,
   emoji,

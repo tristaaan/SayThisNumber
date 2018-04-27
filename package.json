@@ -7,7 +7,7 @@
   "scripts": {
     "test": "mocha",
     "build": "rollup -c",
-    "build:watch": "rollup -c --watch"
+    "pretest": "npm run build"
   },
   "repository": {
     "type": "git",

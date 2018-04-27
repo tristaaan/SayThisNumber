@@ -12,7 +12,8 @@ parser.prototype.in = function(language) {
   if (Array.isArray(this.n)) {
     var ret = [];
     for (var i=0; i < this.n.length; i++) {
-      ret.push(languages[language](this.n));
+      var n = this.n[i];
+      ret.push(languages[language](n));
     }
     return ret;
   }
@@ -35,7 +36,7 @@ export default function sayThisNumber(n) {
 
 export function sayTheseNumbers(arr) {
   arr.forEach(function(n) { test_thresholds(n); });
-  return new parser(n);
+  return new parser(arr);
 };
 
 export function sayNumberRange(from_n, to_n) {
@@ -51,6 +52,9 @@ export function sayNumberRange(from_n, to_n) {
   var arr = [];
   for (var i=from_n; i <= to_n; i++) {
     arr.push(i);
+  }
+  if (reverse) {
+    arr = arr.reverse();
   }
   return sayTheseNumbers(arr);
 };

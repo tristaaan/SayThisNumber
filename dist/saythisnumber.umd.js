@@ -23,12 +23,12 @@
   **********************************************************************/
 
   var exceptions = {
-    100:'一百',1000:'一千',10000:'一万', 100000000:'一亿', 1000000000000:'一兆'};
-  var numbers = {'negative':'负',
-    0: '', 1:'一',2:'二',3:'三',4:'四',5:'五',6:'六',7:'七',8:'八',9:'九',
-    10:'十',
-    100:'百',1000:'千',10000:'万', 100000000:'亿', 1000000000000:'兆'};
-  var zero = "零";
+    100:'yībǎi',1000:'yīqiān',10000:'yīwàn', 100000000:'yīyì', 1000000000000:'yīzhào'};
+  var numbers = {'negative':'fù',
+    0: '', 1:'yī',2:' èr',3:'sān',4:'sì',5:'wǔ',6:'liù',7:'qī',8:'bā',9:'jiǔ',
+    10:'shí',
+    100:'bǎi',1000:'qiān',10000:'wàn', 100000000:'yì', 1000000000000:'zhào'};
+  var zero = "líng";
 
   function r_parse(n,max_place) {
     if (n in exceptions) return exceptions[n];
@@ -46,20 +46,20 @@
           return(
             r_parse(ndivi,max_place/i)+
             numbers[i]+
-            ((nmodi!=0 && next > nmodi) ? zero : '')+
-            ((nmodi==10) ? numbers[1] + numbers[10] : r_parse(nmodi,i))
+            ((nmodi!=0 && next>nmodi)?zero:"")+
+            ((nmodi==10)?numbers[1]+numbers[10]:r_parse(nmodi,i))
             );
         }
       }
     }
   }
 
-  function parseNumber(n){
+  function parseNumber(n) {
     if (n==0) return zero;
-    if (n>10000000000000000-1) return 'unbound';
+    if (n>10000000000000000-1) return "unbound";
     var out = '';
 
-    if (n<0) {
+    if (n<0){
       n *= -1;
       out = numbers.negative;
     }
@@ -77,10 +77,10 @@
 
   var exceptions$1 = {
     100:'一百',1000:'一千',10000:'一万', 100000000:'一亿', 1000000000000:'一兆'};
-  var numbers$1 = {'negative':'負',
+  var numbers$1 = {'negative':'负',
     0: '', 1:'一',2:'二',3:'三',4:'四',5:'五',6:'六',7:'七',8:'八',9:'九',
     10:'十',
-    100:'百',1000:'千',10000:'萬', 100000000:'億', 1000000000000:'兆'};
+    100:'百',1000:'千',10000:'万', 100000000:'亿', 1000000000000:'兆'};
   var zero$1 = "零";
 
   function r_parse$1(n,max_place) {
@@ -99,20 +99,20 @@
           return(
             r_parse$1(ndivi,max_place/i)+
             numbers$1[i]+
-            ((nmodi!=0 && next>nmodi)?zero$1:"")+
-            ((nmodi==10)?numbers$1[1]+numbers$1[10]:r_parse$1(nmodi,i))
+            ((nmodi!=0 && next > nmodi) ? zero$1 : '')+
+            ((nmodi==10) ? numbers$1[1] + numbers$1[10] : r_parse$1(nmodi,i))
             );
         }
       }
     }
   }
 
-  function parseNumber$1(n) {
+  function parseNumber$1(n){
     if (n==0) return zero$1;
-    if (n>10000000000000000-1) return "unbound";
+    if (n>10000000000000000-1) return 'unbound';
     var out = '';
 
-    if (n<0){
+    if (n<0) {
       n *= -1;
       out = numbers$1.negative;
     }
@@ -129,12 +129,12 @@
   **********************************************************************/
 
   var exceptions$2 = {
-    100:'yībǎi',1000:'yīqiān',10000:'yīwàn', 100000000:'yīyì', 1000000000000:'yīzhào'};
-  var numbers$2 = {'negative':'fù',
-    0: '', 1:'yī',2:' èr',3:'sān',4:'sì',5:'wǔ',6:'liù',7:'qī',8:'bā',9:'jiǔ',
-    10:'shí',
-    100:'bǎi',1000:'qiān',10000:'wàn', 100000000:'yì', 1000000000000:'zhào'};
-  var zero$2 = "líng";
+    100:'一百',1000:'一千',10000:'一万', 100000000:'一亿', 1000000000000:'一兆'};
+  var numbers$2 = {'negative':'負',
+    0: '', 1:'一',2:'二',3:'三',4:'四',5:'五',6:'六',7:'七',8:'八',9:'九',
+    10:'十',
+    100:'百',1000:'千',10000:'萬', 100000000:'億', 1000000000000:'兆'};
+  var zero$2 = "零";
 
   function r_parse$2(n,max_place) {
     if (n in exceptions$2) return exceptions$2[n];
@@ -1996,9 +1996,9 @@
   }
 
   var languages = {
-    chineseSimplified: parseNumber,
-    chineseTraditional: parseNumber$1,
-    chinesePinyin: parseNumber$2,
+    chinesePinyin: parseNumber,
+    chineseSimplified: parseNumber$1,
+    chineseTraditional: parseNumber$2,
     czech: parseNumber$3,
     dutch,
     emoji: parseNumber$4,
@@ -2029,7 +2029,8 @@
     if (Array.isArray(this.n)) {
       var ret = [];
       for (var i=0; i < this.n.length; i++) {
-        ret.push(languages[language](this.n));
+        var n = this.n[i];
+        ret.push(languages[language](n));
       }
       return ret;
     }
@@ -2051,12 +2052,14 @@
   }
   function sayTheseNumbers(arr) {
     arr.forEach(function(n) { test_thresholds(n); });
-    return new parser(n);
+    return new parser(arr);
   }
   function sayNumberRange(from_n, to_n) {
+    var reverse = false;
     test_thresholds(from_n);
     test_thresholds(to_n);
     if (from_n > to_n) {
+      reverse = true;
       var tmp = from_n;
       from_n = to_n;
       to_n = tmp;
@@ -2064,6 +2067,9 @@
     var arr = [];
     for (var i=from_n; i <= to_n; i++) {
       arr.push(i);
+    }
+    if (reverse) {
+      arr = arr.reverse();
     }
     return sayTheseNumbers(arr);
   }
