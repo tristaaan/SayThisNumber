@@ -1,6 +1,6 @@
 /**********************************************************************
 Czech number parser
-Author: Harrison Gill based on the original work of Tristan Wright
+Author: Harrison Gill
 Last edited: October 2014
 **********************************************************************/
 

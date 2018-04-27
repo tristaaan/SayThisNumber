@@ -1,6 +1,6 @@
 /**********************************************************************
 Portuguese number parser
-Author: Wagner Leonardi (leonardiwagner@gmail.com)
+Author: Wagner Leonardi
 Last edited: Novemeber 2015
 **********************************************************************/
 

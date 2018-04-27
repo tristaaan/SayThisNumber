@@ -15,7 +15,7 @@ The service also supports a basic API through POST requests.
 curl -X POST curl -X POST localhost:8000/english/12
 ```
 
-Outputs: 
+Outputs:
 ```json
 {
   "language": "english",
@@ -28,12 +28,17 @@ Outputs:
 
 Always seeking pull requests for new languages!
 
-0. Check [the list](https://github.com/tristaaan/SayThisNumber/tree/master/application/parsers) to make sure the language isn't already there.
-1. Write your number parser in `application/parsers/` and expose the function `parseNumber` which recieves a number and returns the number parsed in the language. Be sure to support negative numbers.
-2. Add the language to the `parsers` object in `numberDictionary.js` with [language] as the key and `require('./parsers/[your language]')` as the value.
+1. Write your number parser in `src/parsers/` and export your parse function which takes a number and returns the number parsed in the language. Be sure to support negative numbers.
+2. Add the parser to `languages.js` with [language] as the key. Keep this list alphabetical.
 3. Test it out.
-4. Submit a pull request
+4. Add your name to the [authors list](AUTHORS).
+5. Submit a pull request.
 
-##Supported Languages
 
-[List of parsers](https://github.com/tristaaan/SayThisNumber/tree/master/application/parsers).
+## Supported Languages
+
+[List of parsers](https://github.com/tristaaan/SayThisNumber/tree/master/src/parsers).
+
+## License
+
+MIT
