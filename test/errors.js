@@ -1,5 +1,6 @@
-module.exports = {
-  usageError    : 'usage: `curl [address]/[language]/[number]`',
+'use strict';
+
+var errors = {
   invalidNumber : 'invalid number',
   noNumber      : 'no number provided',
   unsupported   : 'language unsupported',
@@ -7,7 +8,8 @@ module.exports = {
   startTooSmall : 'start of range is too small',
   startTooLarge : 'start of range is too large',
   invalidRange  : 'range is too small or reversed',
-  invalidURL    : 'Malformed URL',
   numberTooSmall: 'number too small',
   numberTooLarge: 'number too large'
-};
+}
+
+module.exports = errors;
