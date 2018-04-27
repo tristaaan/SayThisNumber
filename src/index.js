@@ -6,17 +6,17 @@ var parser = function(n) {
 };
 
 parser.prototype.in = function(language) {
-  if (languages.hasOwnProperty(language)){
+  if (!languages.hasOwnProperty(language)){
     throw new Error(errors.unsupported);
   }
   if (Array.isArray(this.n)) {
     var ret = [];
     for (var i=0; i < this.n.length; i++) {
-      ret.push(languages[language].parseNumber(this.n));
+      ret.push(languages[language](this.n));
     }
     return ret;
   }
-  return languages[language].parseNumber(this.n);
+  return languages[language](this.n);
 };
 
 var test_thresholds = function(n) {

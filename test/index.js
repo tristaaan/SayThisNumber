@@ -2,16 +2,18 @@ var assert = require('assert');
 var errors = require('./errors.js');
 var stn = require('../dist/saythisnumber.js');
 
+var sayThisNumber = stn.default;
+
 describe('Error tests', function() {
-  it('should respond with invalid number error', function(done){
+  it('should respond with invalid number error', function(){
     assert.equal([1,2,3].indexOf(4), -1);
   });
 });
 
 describe('GET success tests', function() {
-  it('should respond with a number', function(done){
-    assert.equal(stn.sayThisNumber(42).in('english'), 'fourty one');
-    assert.equal(stn.sayThisNumber(-42).in('english'), 'negative fourty one');
+  it('should respond with a number', function(){
+    assert.equal(sayThisNumber(42).in('english'), 'forty two');
+    assert.equal(sayThisNumber(-42).in('english'), 'negative forty two');
   });
   // it('should respond with a range', function(done){
   //   async.series([

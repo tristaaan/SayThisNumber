@@ -4,10 +4,6 @@ Author: Robert Roth
 Last edited: October 2014
 **********************************************************************/
 
-var germanNumberParser = function(){
-
-  var my = {};
-
   var exceptions = {1:'eins',10:'zehn',11:'elf',12:'zwölf',13:'dreizehn',14:'vierzehn',15:'fünfzehn',16:'sechzehn',17:'siebzehn',18:'achtzehn',19:'neunzehn'};
   var one_feminine = 'eine';
   var numbers = {'conjunction':'und','negative':'minus',
@@ -16,8 +12,7 @@ var germanNumberParser = function(){
     100:'hundert',1000:'tausend',1000000:'Million ', 1000000000:'Millarde ', 1000000000000:'Billion ',1000000000000000:'Billiarde '};
 
 
-  function r_parse(n,max_place,feminine)
-  {
+  function r_parse(n,max_place,feminine) {
     if (feminine && n==1 ) return one_feminine;
     if (n in exceptions) return exceptions[n]+(feminine?" ":"");
     if (n in numbers) return numbers[n]+(feminine?" ":"");
@@ -37,22 +32,16 @@ var germanNumberParser = function(){
     }
   }
 
-  my.parseNumber = function(n){
-    if (n==0) return "null";
-    if (n>10000000000000000-1) return "unbound";
-    if (n>1000 && n in numbers) return one_feminine+" "+numbers[n];
-    var out = '';
+export default function parseNumber(n) {
+  if (n==0) return "null";
+  if (n>10000000000000000-1) return "unbound";
+  if (n>1000 && n in numbers) return one_feminine+" "+numbers[n];
+  var out = '';
 
-    if (n<0){
-      n *= -1;
-      out = numbers.negative+" ";
-    }
-    out=out+r_parse(n,1000000000000000,n>1000);
-    return out.trim();
+  if (n<0){
+    n *= -1;
+    out = numbers.negative+" ";
   }
-  return my;
+  out=out+r_parse(n,1000000000000000,n>1000);
+  return out.trim();
 }
-
-
-
-module.exports = new germanNumberParser;
