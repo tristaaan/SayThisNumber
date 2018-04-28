@@ -51,12 +51,12 @@ var validateNumber = function(n) {
   }
 };
 
-export default function sayThisNumber(n) {
+function thisNumber(n) {
   validateNumber(n);
   return new Parser(n);
 };
 
-export function sayTheseNumbers(arr) {
+function theseNumbers(arr) {
   if (arguments.length === 0) {
     throw new Error(errors.noNumber);
   }
@@ -71,7 +71,7 @@ export function sayTheseNumbers(arr) {
   return new Parser(arr);
 };
 
-export function sayThisNumberRange(fromN, toN) {
+function thisNumberRange(fromN, toN) {
   var reverse = false;
   validateNumber(fromN);
   validateNumber(toN);
@@ -88,5 +88,11 @@ export function sayThisNumberRange(fromN, toN) {
   if (reverse) {
     arr = arr.reverse();
   }
-  return sayTheseNumbers(arr);
+  return theseNumbers(arr);
+};
+
+export default {
+  thisNumber: thisNumber,
+  theseNumbers: theseNumbers,
+  thisNumberRange: thisNumberRange
 };

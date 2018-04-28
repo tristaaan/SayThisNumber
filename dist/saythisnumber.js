@@ -1,7 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', { value: true });
-
 /**
  * @module 101/is-number
  */
@@ -1947,11 +1945,11 @@ var validateNumber = function(n) {
   }
 };
 
-function sayThisNumber(n) {
+function thisNumber(n) {
   validateNumber(n);
   return new Parser(n);
 }
-function sayTheseNumbers(arr) {
+function theseNumbers(arr) {
   if (arguments.length === 0) {
     throw new Error(errors.noNumber);
   }
@@ -1965,7 +1963,7 @@ function sayTheseNumbers(arr) {
   arr.forEach(function(n) { validateNumber(n); });
   return new Parser(arr);
 }
-function sayThisNumberRange(fromN, toN) {
+function thisNumberRange(fromN, toN) {
   var reverse = false;
   validateNumber(fromN);
   validateNumber(toN);
@@ -1982,9 +1980,12 @@ function sayThisNumberRange(fromN, toN) {
   if (reverse) {
     arr = arr.reverse();
   }
-  return sayTheseNumbers(arr);
+  return theseNumbers(arr);
 }
+var index = {
+  thisNumber: thisNumber,
+  theseNumbers: theseNumbers,
+  thisNumberRange: thisNumberRange
+};
 
-exports.default = sayThisNumber;
-exports.sayTheseNumbers = sayTheseNumbers;
-exports.sayThisNumberRange = sayThisNumberRange;
+module.exports = index;

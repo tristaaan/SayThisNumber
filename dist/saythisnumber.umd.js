@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.sayThisNumber = {})));
-}(this, (function (exports) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global.say = factory());
+}(this, (function () { 'use strict';
 
   /**
    * @module 101/is-number
@@ -1949,11 +1949,11 @@
     }
   };
 
-  function sayThisNumber(n) {
+  function thisNumber(n) {
     validateNumber(n);
     return new Parser(n);
   }
-  function sayTheseNumbers(arr) {
+  function theseNumbers(arr) {
     if (arguments.length === 0) {
       throw new Error(errors.noNumber);
     }
@@ -1967,7 +1967,7 @@
     arr.forEach(function(n) { validateNumber(n); });
     return new Parser(arr);
   }
-  function sayThisNumberRange(fromN, toN) {
+  function thisNumberRange(fromN, toN) {
     var reverse = false;
     validateNumber(fromN);
     validateNumber(toN);
@@ -1984,13 +1984,14 @@
     if (reverse) {
       arr = arr.reverse();
     }
-    return sayTheseNumbers(arr);
+    return theseNumbers(arr);
   }
+  var index = {
+    thisNumber: thisNumber,
+    theseNumbers: theseNumbers,
+    thisNumberRange: thisNumberRange
+  };
 
-  exports.default = sayThisNumber;
-  exports.sayTheseNumbers = sayTheseNumbers;
-  exports.sayThisNumberRange = sayThisNumberRange;
-
-  Object.defineProperty(exports, '__esModule', { value: true });
+  return index;
 
 })));

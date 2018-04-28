@@ -1,27 +1,29 @@
-# Say This Number
+# SayThisNumber
 Parses raw numbers into a human language.
 
 ## Usage
 
 ```js
-import sayThisNumber from 'SayThisNumber';
-sayThisNumber(37).in('english'); // => 'thirty seven'
-sayThisNumber(52).in('russian'); // => пятьдесят два'
+import say from 'SayThisNumber';
+say.thisNumber(37).in('english'); // => 'thirty seven'
+say.thisNumber(52).in('russian'); // => пятьдесят два'
 ```
 
 Ranges:
 
 ```js
-import sayNumberRange from 'SayThisNumber';
-sayNumberRange(3,1).in('spanish'); // => [ 'tres', 'dos', 'uno', '🚀' ]
+import say from 'SayThisNumber';
+say.thisNumberRange(3,1).in('spanish'); // => [ 'tres', 'dos', 'uno', '🚀' ]
 ```
 
 Multiple numbers:
 
 ```js
-import sayTheseNumbers from 'SayThisNumber';
-sayTheseNumbers([33, 91]).in('icelandic') // => [ 'þrettán', 'níutíu og sjö' ]
+import say from 'SayThisNumber';
+say.theseNumbers([33, 91]).in('icelandic') // => [ 'þrettán', 'níutíu og sjö' ]
 ```
+
+In the browser there is an exposed `say` object with the same API.
 
 ## Adding New Languages
 

@@ -8,7 +8,7 @@ export default [
   {
     input: 'src/index.js',
     output: {
-      name: 'sayThisNumber',
+      name: 'say',
       file: pkg.browser,
       format: 'umd'
     },
