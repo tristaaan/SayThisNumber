@@ -48,7 +48,6 @@ function parse100s(n) {
   } else if (n % 100 === 0) {
     out = numbers[n];
   } else {
-    console.log(n);
     if (inRange(n, 100, 200)) {
       out = numbers['100s'] + ' ' + numbers.conjunction + ' ' + parse10s(parseInt(n.toString().substr(1, 2)), true);
     } else {

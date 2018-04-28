@@ -1465,7 +1465,6 @@
     } else if (n % 100 === 0) {
       out = numbers$13[n];
     } else {
-      console.log(n);
       if (inRange(n, 100, 200)) {
         out = numbers$13['100s'] + ' ' + numbers$13.conjunction + ' ' + parse10s$9(parseInt(n.toString().substr(1, 2)), true);
       } else {
@@ -1876,6 +1875,7 @@
 
   var Parser = function(n) {
     this.n = n;
+    this.languages = Object.keys(languages);
   };
 
   Parser.prototype.in = function(language) {
@@ -1909,7 +1909,7 @@
     arr.forEach(function(n) { testThresholds(n); });
     return new Parser(arr);
   }
-  function sayNumberRange(fromN, toN) {
+  function sayThisNumberRange(fromN, toN) {
     var reverse = false;
     testThresholds(fromN);
     testThresholds(toN);
@@ -1931,7 +1931,7 @@
 
   exports.default = sayThisNumber;
   exports.sayTheseNumbers = sayTheseNumbers;
-  exports.sayNumberRange = sayNumberRange;
+  exports.sayThisNumberRange = sayThisNumberRange;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 

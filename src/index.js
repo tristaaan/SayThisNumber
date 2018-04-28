@@ -3,6 +3,7 @@ import languages from './languages';
 
 var Parser = function(n) {
   this.n = n;
+  this.languages = Object.keys(languages);
 };
 
 Parser.prototype.in = function(language) {
@@ -38,7 +39,7 @@ export function sayTheseNumbers(arr) {
   return new Parser(arr);
 };
 
-export function sayNumberRange(fromN, toN) {
+export function sayThisNumberRange(fromN, toN) {
   var reverse = false;
   testThresholds(fromN);
   testThresholds(toN);
