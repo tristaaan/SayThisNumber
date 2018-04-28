@@ -1,5 +1,34 @@
-import isNumber from '101/is-number';
-import isString from '101/is-string';
+/**
+ * @module 101/is-number
+ */
+
+/**
+ * Functional version of val typeof 'number'
+ * @function module:101/is-number
+ * @param {*} val - value checked to be a string
+ * @return {boolean} Whether the value is an string or not
+ */
+var isNumber_1 = isNumber;
+
+function isNumber (val) {
+  return (typeof val === 'number' || val instanceof Number) && !isNaN(val)
+}
+
+/**
+ * @module 101/is-string
+ */
+
+/**
+ * Functional version of val typeof 'string'
+ * @function module:101/is-string
+ * @param {*} val - value checked to be a string
+ * @return {boolean} Whether the value is an string or not
+ */
+var isString_1 = isString;
+
+function isString (val) {
+  return typeof val === 'string' || val instanceof String;
+}
 
 var errors = {
   invalidNumber: 'Invalid number',
@@ -1867,7 +1896,7 @@ var languages = {
 };
 
 var Parser = function(n) {
-  if (isString(n)) {
+  if (isString_1(n)) {
     // this result has already been validated to not be NaN
     n = parseInt(n, 10);
   }
@@ -1903,13 +1932,13 @@ var validateNumber = function(n) {
     throw new Error(errors.invalidNumber);
   }
 
-  if (isString(n)) {
+  if (isString_1(n)) {
     n = parseInt(n, 10);
     if (isNaN(n)) {
       throw new Error(errors.invalidNumber);
     }
   }
-  if (!isNumber(n)) {
+  if (!isNumber_1(n)) {
     throw new Error(errors.invalidNumber);
   }
 };

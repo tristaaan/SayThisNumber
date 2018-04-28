@@ -14,7 +14,7 @@ export default [
     },
     plugins: [
       resolve(),
-      eslint({}),
+      eslint(),
       commonjs()
     ]
   },
@@ -23,9 +23,13 @@ export default [
     output: [
       { file: pkg.main, format: 'cjs' },
       { file: pkg.module, format: 'es' }
+    ],
+    plugins: [
+      resolve(),
+      commonjs()
     ]
   },
-  {
+  { // for testing
     input: './src/errors.js',
     output: [
       { file: './test/errors.js', format: 'cjs' }
