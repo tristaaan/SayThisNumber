@@ -1,22 +1,33 @@
 {
   "name": "saythisnumber",
-  "version": "0.5.0",
-  "main": "index.js",
+  "version": "0.6.0",
+  "main": "dist/saythisnumber.js",
+  "module": "dist/saythisnumber.esm.js",
+  "browser": "dist/saythisnumber.min.js",
   "scripts": {
     "test": "mocha",
-    "start": "node index.js"
+    "build": "rollup -c",
+    "pretest": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/tristaaan/SayThisNumber"
   },
   "dependencies": {
-    "jade": "~1.3.1",
-    "express": "~4.12.3"
+    "101": "^1.6.3"
   },
   "devDependencies": {
-    "mocha": "^2.2.1",
-    "supertest": "^0.15.0",
-    "async": "^0.9.0"
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "mocha": "^5.1.1",
+    "rollup": "^0.58.2",
+    "rollup-plugin-commonjs": "^9.1.0",
+    "rollup-plugin-eslint": "^4.0.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-uglify": "^3.0.0"
   }
 }
