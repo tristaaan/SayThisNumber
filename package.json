@@ -3,7 +3,7 @@
   "version": "0.6.0",
   "main": "dist/saythisnumber.js",
   "module": "dist/saythisnumber.esm.js",
-  "browser": "dist/saythisnumber.umd.js",
+  "browser": "dist/saythisnumber.min.js",
   "scripts": {
     "test": "mocha",
     "build": "rollup -c",
@@ -27,6 +27,7 @@
     "rollup": "^0.58.2",
     "rollup-plugin-commonjs": "^9.1.0",
     "rollup-plugin-eslint": "^4.0.0",
-    "rollup-plugin-node-resolve": "^3.3.0"
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-uglify": "^3.0.0"
   }
 }
