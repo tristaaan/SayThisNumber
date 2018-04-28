@@ -29,7 +29,7 @@ In the browser there is an exposed `say` object with the same API.
 
 Always seeking pull requests for new languages!
 
-1. Write your number parser in `src/parsers/` and export your parse function which takes a number and returns the number parsed in the language. Be sure to support negative numbers.
+1. Write your number parser in `src/parsers/` and export your parse function which takes a number and returns the number parsed in the language. Be sure to support negative numbers and follow the ESLint rules..
 2. Add the parser to `languages.js` with [language] as the key. Keep this list alphabetical.
 3. Test it out.
 4. Add your name to the [authors list](AUTHORS).
