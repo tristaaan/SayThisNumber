@@ -1,7 +1,7 @@
 export default {
-  invalidNumber: 'invalid number',
-  noNumber: 'no number provided',
-  unsupported: 'language unsupported',
-  numberTooSmall: 'number too small',
-  numberTooLarge: 'number too large'
+  invalidNumber: 'Invalid number',
+  noNumber: 'No number provided',
+  unsupported: 'Language unsupported',
+  numberTooSmall: 'Number too small',
+  numberTooLarge: 'Number too large'
 };

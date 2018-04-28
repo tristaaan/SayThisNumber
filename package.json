@@ -13,7 +13,9 @@
     "type": "git",
     "url": "https://github.com/tristaaan/SayThisNumber"
   },
-  "dependencies": {},
+  "dependencies": {
+    "101": "^1.6.3"
+  },
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",

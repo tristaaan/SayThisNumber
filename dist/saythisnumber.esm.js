@@ -1,13 +1,12 @@
+import isNumber from '101/is-number';
+import isString from '101/is-string';
+
 var errors = {
-  invalidNumber: 'invalid number',
-  noNumber: 'no number provided',
-  unsupported: 'language unsupported',
-  rangeTooLarge: 'range is too large',
-  startTooSmall: 'start of range is too small',
-  startTooLarge: 'start of range is too large',
-  invalidRange: 'range is too small or reversed',
-  numberTooSmall: 'number too small',
-  numberTooLarge: 'number too large'
+  invalidNumber: 'Invalid number',
+  noNumber: 'No number provided',
+  unsupported: 'Language unsupported',
+  numberTooSmall: 'Number too small',
+  numberTooLarge: 'Number too large'
 };
 
 /**********************************************************************
@@ -1868,6 +1867,10 @@ var languages = {
 };
 
 var Parser = function(n) {
+  if (isString(n)) {
+    // this result has already been validated to not be NaN
+    n = parseInt(n, 10);
+  }
   this.n = n;
   this.languages = Object.keys(languages);
 };
@@ -1887,26 +1890,52 @@ Parser.prototype.in = function(language) {
   return languages[language](this.n);
 };
 
-var testThresholds = function(n) {
+var validateNumber = function(n) {
   if (n > Math.pow(10, 15)) {
     throw new Error(errors.numberTooLarge);
   } else if (n < -Math.pow(10, 15)) {
     throw new Error(errors.numberTooSmall);
   }
+
+  if (n === null || n === undefined) {
+    throw new Error(errors.noNumber);
+  } else if (isNaN(n)) {
+    throw new Error(errors.invalidNumber);
+  }
+
+  if (isString(n)) {
+    n = parseInt(n, 10);
+    if (isNaN(n)) {
+      throw new Error(errors.invalidNumber);
+    }
+  }
+  if (!isNumber(n)) {
+    throw new Error(errors.invalidNumber);
+  }
 };
 
 function sayThisNumber(n) {
-  testThresholds(n);
+  validateNumber(n);
   return new Parser(n);
 }
 function sayTheseNumbers(arr) {
-  arr.forEach(function(n) { testThresholds(n); });
+  if (arguments.length === 0) {
+    throw new Error(errors.noNumber);
+  }
+  if (!Array.isArray(arr)) {
+    var _arr = [];
+    for (var i = 0; i < arguments.length; i++) {
+      _arr[i] = arguments[i];
+    }
+    arr = _arr;
+  }
+  arr.forEach(function(n) { validateNumber(n); });
   return new Parser(arr);
 }
 function sayThisNumberRange(fromN, toN) {
   var reverse = false;
-  testThresholds(fromN);
-  testThresholds(toN);
+  validateNumber(fromN);
+  validateNumber(toN);
   if (fromN > toN) {
     reverse = true;
     var tmp = fromN;
