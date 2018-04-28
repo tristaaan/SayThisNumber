@@ -20,117 +20,102 @@ var numbers = {'seperator': '-', 'conjunction': 'et', '':'un', 'negative':'moins
    in the target language, and getPlace(n, 1, 1) will return
    the equivalent of "two" in the target language. */
 
-function getPlace(n, which, scale){
-  return numbers[parseInt(n.toString()[which])*scale];
+function getPlace(n, which, scale) {
+  return numbers[parseInt(n.toString()[which]) * scale];
 }
 
-function parse10s(n, ignore0){
+function parse10s(n, ignore0) {
   var out = '';
-  if (n == 0 && ignore0){
+  if (n === 0 && ignore0) {
     out = '';
-  }
-  else if (n <= 20 || (n % 10 == 0 && n != 80)){
+  } else if (n <= 20 || (n % 10 === 0 && n !== 80)) {
     out = numbers[n];
-  }
-  else if (n % 10 == 1 && Math.floor(n/10) != 7 && Math.floor(n/10) != 9 && n != 81){
-    out = numbers[Math.floor(n/10)*10] + ' ' + numbers.conjunction + ' ' + numbers[1];
-  }
-  else if (n > 20 && n < 60 && n % 10 > 1){
-    out = numbers[Math.floor(n/10)*10] + numbers.seperator + getPlace(n,1,1);
-  }
-  else if (n > 60 && n < 80){
-    out = numbers[60] + numbers.seperator + numbers[n-60];
-  }
-  else if (n == 80){
+  } else if (n % 10 === 1 && Math.floor(n / 10) !== 7 && Math.floor(n / 10) !== 9 && n !== 81) {
+    out = numbers[Math.floor(n / 10) * 10] + ' ' + numbers.conjunction + ' ' + numbers[1];
+  } else if (n > 20 && n < 60 && n % 10 > 1) {
+    out = numbers[Math.floor(n / 10) * 10] + numbers.seperator + getPlace(n, 1, 1);
+  } else if (n > 60 && n < 80) {
+    out = numbers[60] + numbers.seperator + numbers[n - 60];
+  } else if (n === 80) {
     out = numbers[80] + 's';
-  }
-  else if (n >= 81 && n < 100){
-    out = numbers[80] + numbers.seperator + numbers[n-80];
+  } else if (n >= 81 && n < 100) {
+    out = numbers[80] + numbers.seperator + numbers[n - 80];
   }
 
   return out;
 }
 
-function parse100s(n){
+function parse100s(n) {
   var out = '';
-  if (n == 100){
+  if (n === 100) {
     out = numbers[100];
-  }
-  else if (n == 200 && n < 300){
+  } else if (n === 200 && n < 300) {
     out = numbers[2] + ' ' + numbers[100] + 's';
-  }
-  else if (n % 100 == 0 && Math.floor(n/100) > 1){
+  } else if (n % 100 === 0 && Math.floor(n / 100) > 1) {
     out = getPlace(n, 0, 1) + ' ' + numbers[100];
-  }
-  else if (Math.floor(n/100) > 1){
-    out = getPlace(n, 0, 1) + ' ' + numbers[100] + ' ' + parse10s(parseInt(n.toString().substr(1,2)), true);
-  }
-  else {
-    out = numbers[100] + ' ' + parse10s(parseInt(n.toString().substr(1,2)), true);
+  } else if (Math.floor(n / 100) > 1) {
+    out = getPlace(n, 0, 1) + ' ' + numbers[100] + ' ' + parse10s(parseInt(n.toString().substr(1, 2)), true);
+  } else {
+    out = numbers[100] + ' ' + parse10s(parseInt(n.toString().substr(1, 2)), true);
   }
 
   return out;
 }
 
-function parseGreaterThanOrEqualTo1000(n){
+function parseGreaterThanOrEqualTo1000(n) {
   var out = '';
   var numberString = n.toString();
   var counter = 0;
-  while (numberString.length > 3){
-    var piece = parseInt(numberString.substr(numberString.length-3, numberString.length-1));
+  while (numberString.length > 3) {
+    var piece = parseInt(numberString.substr(numberString.length - 3, numberString.length - 1));
     var isPlural = Math.floor(piece) > 1 && counter > 3 ? 's ' : ' ';
 
-    if (piece == 0){
-      numberString = numberString.substr(0,numberString.length-3)
+    if (piece === 0) {
+      numberString = numberString.substr(0, numberString.length - 3);
       counter += 3;
       continue;
-    }
-    else{
-      piece = my.parseNumber(parseInt(piece));
+    } else {
+      piece = parseNumber(parseInt(piece));
     }
 
-    out = piece + ' ' + (counter >= 3 ? numbers[Math.pow(10,counter)] + isPlural : '') + out;
+    out = piece + ' ' + (counter >= 3 ? numbers[Math.pow(10, counter)] + isPlural : '') + out;
 
-    numberString = numberString.substr(0,numberString.length-3);
+    numberString = numberString.substr(0, numberString.length - 3);
     counter += 3;
   }
 
-  var isPlural = parseInt(numberString.substr(0,3)) > 1 ? 's ' : ' ';
+  isPlural = parseInt(numberString.substr(0, 3)) > 1 ? 's ' : ' ';
   var suffix = numbers[Math.pow(10, counter)] + isPlural;
 
-  //specific: 1000 => mille, 2000 => duex milles
-  if (counter == 3 && parseInt(numberString.substr(0,3)) == 1){
+  // specific: 1000 => mille, 2000 => duex milles
+  if (counter === 3 && parseInt(numberString.substr(0, 3)) === 1) {
     out = suffix + out;
-  }
-  else{
-    var prefix = my.parseNumber(numberString.substr(0,3))
+  } else {
+    var prefix = parseNumber(numberString.substr(0, 3));
     out = prefix + ' ' + suffix + out;
   }
   return out;
 }
 
-export default function parseNumber (n){
+export default function parseNumber(n) {
   var out = '';
   var negative = n < 0;
 
-  if (negative){
+  if (negative) {
     n *= -1;
   }
 
-  if (n < 100){
+  if (n < 100) {
     out = parse10s(n, true);
-  }
-  else if (n < 1000){
+  } else if (n < 1000) {
     out = parse100s(n);
-  }
-  else if (n >= 1000){
+  } else if (n >= 1000) {
     out = parseGreaterThanOrEqualTo1000(n);
-  }
-  else{
+  } else {
     out = 'unbound';
   }
 
-  if (negative){
+  if (negative) {
     out = numbers.negative + ' ' + out;
   }
 

@@ -1,17 +1,17 @@
-import errors from './errors.js';
+import errors from './errors';
 import languages from './languages';
 
-var parser = function(n) {
+var Parser = function(n) {
   this.n = n;
 };
 
-parser.prototype.in = function(language) {
-  if (!languages.hasOwnProperty(language)){
+Parser.prototype.in = function(language) {
+  if (!languages.hasOwnProperty(language)) {
     throw new Error(errors.unsupported);
   }
   if (Array.isArray(this.n)) {
     var ret = [];
-    for (var i=0; i < this.n.length; i++) {
+    for (var i = 0; i < this.n.length; i++) {
       var n = this.n[i];
       ret.push(languages[language](n));
     }
@@ -20,37 +20,36 @@ parser.prototype.in = function(language) {
   return languages[language](this.n);
 };
 
-var test_thresholds = function(n) {
-  if (n > Math.pow(10, 15)){
+var testThresholds = function(n) {
+  if (n > Math.pow(10, 15)) {
     throw new Error(errors.numberTooLarge);
-  }
-  else if (n < -Math.pow(10, 15)){
+  } else if (n < -Math.pow(10, 15)) {
     throw new Error(errors.numberTooSmall);
   }
 };
 
 export default function sayThisNumber(n) {
-  test_thresholds(n);
-  return new parser(n);
+  testThresholds(n);
+  return new Parser(n);
 };
 
 export function sayTheseNumbers(arr) {
-  arr.forEach(function(n) { test_thresholds(n); });
-  return new parser(arr);
+  arr.forEach(function(n) { testThresholds(n); });
+  return new Parser(arr);
 };
 
-export function sayNumberRange(from_n, to_n) {
+export function sayNumberRange(fromN, toN) {
   var reverse = false;
-  test_thresholds(from_n);
-  test_thresholds(to_n);
-  if (from_n > to_n) {
+  testThresholds(fromN);
+  testThresholds(toN);
+  if (fromN > toN) {
     reverse = true;
-    var tmp = from_n;
-    from_n = to_n;
-    to_n = tmp;
+    var tmp = fromN;
+    fromN = toN;
+    toN = tmp;
   }
   var arr = [];
-  for (var i=from_n; i <= to_n; i++) {
+  for (var i = fromN; i <= toN; i++) {
     arr.push(i);
   }
   if (reverse) {

@@ -22,84 +22,76 @@ var masculineSingles = {1: 'einn', 2:'tveir', 3:'þrír', 4:'fjórir'};
    in the target language, and getPlace(n, 1, 1) will return
    the equivalent of "two" in the target language. */
 
-function getPlace(n, which, scale){
-  return numbers[parseInt(n.toString()[which])*scale];
+function getPlace(n, which, scale) {
+  return numbers[parseInt(n.toString()[which]) * scale];
 }
 
-function parse10s(n, masc){
+function parse10s(n, masc) {
   var out = '';
-  if (n == 0){
+  if (n === 0) {
     out = numbers[0];
-  }
-  else if (n < 5 && masc){
+  } else if (n < 5 && masc) {
     out = masculineSingles[n];
-  }
-  else if (n <= 20){
+  } else if (n <= 20) {
     out = numbers[n];
-  }
-  else{
-    if (n % 10 == 0){
-      out = getPlace(n,0,10);
-    }
-    else if (n % 10 >= 5){
-      out = getPlace(n,0,10) + ' ' +numbers.conjunction+ ' ' + getPlace(n,1,1);
-    }
-    else{
-      out = getPlace(n,0,10) + ' ' +numbers.conjunction+ ' ' + masculineSingles[n.toString()[1]];
+  } else {
+    if (n % 10 === 0) {
+      out = getPlace(n, 0, 10);
+    } else if (n % 10 >= 5) {
+      out = getPlace(n, 0, 10) + ' ' + numbers.conjunction + ' ' + getPlace(n, 1, 1);
+    } else {
+      out = getPlace(n, 0, 10) + ' ' + numbers.conjunction + ' ' + masculineSingles[n.toString()[1]];
     }
   }
   return out;
 }
 
-function parse100s(n){
+function parse100s(n) {
   var out = '';
-  if (n % 100 == 0){
+  if (n % 100 === 0) {
     out = getPlace(n, 0, 1) + ' ' + numbers[100];
-  }
-  else{
-    out = getPlace(n, 0, 1) + ' ' + numbers[100] + ' ' +numbers.conjunction+ ' ' + parse10s(parseInt(n.toString().substr(1,2)));
+  } else {
+    out = getPlace(n, 0, 1) + ' ' + numbers[100] + ' ' + numbers.conjunction + ' ' + parse10s(parseInt(n.toString().substr(1, 2)));
   }
 
   return out;
 }
 
-function parseGreaterThanOrEqualTo1000(n){
+function parseGreaterThanOrEqualTo1000(n) {
   var out = '';
   var nStr = n.toString();
   var ctr = 0;
-  while (nStr.length > 3){
-    var piece = parseInt(nStr.substr(nStr.length-3, nStr.length-1));
+  while (nStr.length > 3) {
+    var piece = parseInt(nStr.substr(nStr.length - 3, nStr.length - 1));
 
-    if (piece == 0){
-      nStr = nStr.substr(0,nStr.length-3);
+    if (piece === 0) {
+      nStr = nStr.substr(0, nStr.length - 3);
       ctr += 3;
       continue;
-    }
-    else if (piece < 100 && numbers.hasSingle){
+    } else if (piece < 100 && numbers.hasSingle) {
       piece = andSingle(piece);
-    }
-    else{
-      piece = my.parseNumber(parseInt(piece), ctr < 3);
+    } else {
+      piece = parseNumber(parseInt(piece), ctr < 3);
     }
 
-    out = piece + ' ' + (ctr >= 3 ? numbers[Math.pow(10,ctr)] : '') + ' ' + out;
+    out = piece + ' ' + (ctr >= 3 ? numbers[Math.pow(10, ctr)] : '') + ' ' + out;
 
-    nStr = nStr.substr(0,nStr.length-3);
+    nStr = nStr.substr(0, nStr.length - 3);
     ctr += 3;
   }
-  out = my.parseNumber(nStr.substr(0,3)) + ' ' + numbers[Math.pow(10, ctr)] + ' ' + out;
+  out = parseNumber(nStr.substr(0, 3)) + ' ' + numbers[Math.pow(10, ctr)] + ' ' + out;
   return out;
 }
 
-function andSingle(n){
-  return numbers.conjunction+ ' ' + my.parseNumber(n, true);
+function andSingle(n) {
+  return numbers.conjunction + ' ' + parseNumber(n, true);
 }
 
-export default function parseNumber (n){
+export default function parseNumber(n) {
   var out = '';
   var negative = n < 0;
 
-  if (negative){
+  if (negative) {
     n *= -1;
   }
 
@@ -113,7 +105,7 @@ export default function parseNumber (n){
     out = 'unbound';
   }
 
-  if (negative){
+  if (negative) {
     out = numbers.negative + ' ' + out;
   }
 

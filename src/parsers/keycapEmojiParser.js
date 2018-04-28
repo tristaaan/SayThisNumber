@@ -4,9 +4,9 @@ Author: Vishwesh Anand
 Last edited: February 2016
 **********************************************************************/
 
-var keycap = ["0️⃣", "1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣"];
+var keycap = ['0️⃣', '1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣'];
 
-export default function parseNumber(n){
+export default function parseNumber(n) {
   var numberString = n.toString();
 
   numberString = numberString.replace(/0/g, keycap[0])
