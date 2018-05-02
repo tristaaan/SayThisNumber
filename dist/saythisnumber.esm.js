@@ -30,6 +30,22 @@ function isString (val) {
   return typeof val === 'string' || val instanceof String;
 }
 
+/**
+ * @module 101/is-function
+ */
+
+/**
+ * Functional version of val typeof 'function'
+ * @function module:101/is-function
+ * @param {*} val - value checked to be a function
+ * @return {boolean} Whether the value is a function or not
+ */
+var isFunction_1 = isFunction;
+
+function isFunction (v) {
+  return typeof v === 'function';
+}
+
 var errors = {
   invalidNumber: 'Invalid number',
   noNumber: 'No number provided',
@@ -1873,9 +1889,12 @@ function parseNumber$19(n) {
 }
 
 var languages = {
-  chinesePinyin: parseNumber,
-  chineseSimplified: parseNumber$1,
-  chineseTraditional: parseNumber$2,
+  chinese: {
+    default: 'simplified',
+    simplified: parseNumber$1,
+    traditional: parseNumber$2,
+    pinyin: parseNumber
+  },
   czech: parseNumber$3,
   dutch: parseNumber$4,
   emoji: parseNumber$5,
@@ -1885,9 +1904,12 @@ var languages = {
   german: parseNumber$9,
   icelandic: parseNumber$10,
   italian: parseNumber$11,
-  japaneseHiragana: parseNumber$12,
-  japaneseKanji: parseNumber$13,
-  japaneseRomaji: parseNumber$14,
+  japanese: {
+    default: 'kanji',
+    kanji: parseNumber$13,
+    hiragana: parseNumber$12,
+    romanji: parseNumber$14
+  },
   norwegian: parseNumber$15,
   portuguese: parseNumber$16,
   russian: parseNumber$17,
@@ -1904,19 +1926,34 @@ var Parser = function(n) {
   this.languages = Object.keys(languages);
 };
 
-Parser.prototype.in = function(language) {
+Parser.prototype.in = function(language, category) {
   if (!languages.hasOwnProperty(language)) {
     throw new Error(errors.unsupported);
   }
+
+  var parser = languages[language];
+  if (!isFunction_1(parser)) {
+    if (category !== undefined) {
+      parser = parser[category];
+    } else {
+      // pick the default
+      parser = parser[parser.default];
+    }
+    // in the event that parser[category] doesn't exist.
+    if (!isFunction_1(parser) || parser === undefined) {
+      throw new Error(errors.unsupported);
+    }
+  }
+
   if (Array.isArray(this.n)) {
     var ret = [];
     for (var i = 0; i < this.n.length; i++) {
       var n = this.n[i];
-      ret.push(languages[language](n));
+      ret.push(parser(n));
     }
     return ret;
   }
-  return languages[language](this.n);
+  return parser(this.n);
 };
 
 var validateNumber = function(n) {
