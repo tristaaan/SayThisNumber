@@ -20,9 +20,12 @@ import spanish            from './parsers/spanishNumberParser';
 import swedish            from './parsers/swedishNumberParser';
 
 export default {
-  chinesePinyin,
-  chineseSimplified,
-  chineseTraditional,
+  chinese: {
+    default: 'simplified',
+    simplified: chineseSimplified,
+    traditional: chineseTraditional,
+    pinyin: chinesePinyin
+  },
   czech,
   dutch,
   emoji,
@@ -32,9 +35,12 @@ export default {
   german,
   icelandic,
   italian,
-  japaneseHiragana,
-  japaneseKanji,
-  japaneseRomaji,
+  japanese: {
+    default: 'kanji',
+    kanji: japaneseKanji,
+    hiragana: japaneseHiragana,
+    romanji: japaneseRomaji
+  },
   norwegian,
   portuguese,
   russian,

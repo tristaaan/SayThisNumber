@@ -13,7 +13,7 @@ Ranges:
 
 ```js
 import say from 'SayThisNumber';
-say.thisNumberRange(3,1).in('spanish'); // => [ 'tres', 'dos', 'uno', '🚀' ]
+say.thisNumberRange(3,1).in('spanish'); // => [ 'tres', 'dos', 'uno' ]
 ```
 
 Multiple numbers:

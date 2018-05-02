@@ -22,6 +22,20 @@ describe('Basic tests', function() {
     assert.deepEqual(say.thisNumberRange(1, 5).in('english'), ['one', 'two', 'three', 'four', 'five']);
     assert.deepEqual(say.thisNumberRange(5, 1).in('english'), ['five', 'four', 'three', 'two', 'one']);
   });
+  it('allows a language category', function() {
+    assert.doesNotThrow(function() {
+      say.thisNumber(95).in('chinese');
+    });
+    assert.doesNotThrow(function() {
+      say.thisNumber(96).in('chinese', 'pinyin');
+    });
+    assert.doesNotThrow(function() {
+      say.thisNumber(97).in('chinese', 'traditional');
+    });
+    assert.doesNotThrow(function() {
+      say.thisNumber(98).in('chinese', 'simplified');
+    });
+  });
 });
 
 function errorRegex(err) {
@@ -32,6 +46,7 @@ describe('Error tests', function() {
   it('should report language unsupported', function() {
     assert.throws(function() { say.thisNumber(42).in('flinglish'); }, errorRegex(errors.unsupported));
     assert.throws(function() { say.thisNumber(43).in('rongorongo'); }, errorRegex(errors.unsupported));
+    assert.throws(function() { say.thisNumber(44).in('chinese', 'something'); }, errorRegex(errors.unsupported));
   });
   it('should report number too large', function() {
     assert.throws(function() { say.thisNumber(Math.pow(10, 15) + 2).in('english'); }, errorRegex(errors.numberTooLarge));
@@ -53,33 +68,39 @@ describe('Error tests', function() {
   });
 });
 
+// This is a very simple test and should not be used to assert
+// that a number parser is correct but rather that
+// the parser doesn't crash or run indefinitely.
+function sanityTest(n, l) {
+  return function() {
+    var val = say.thisNumber(n).in(l);
+    if (val === 'unbound') {
+      throw new Error(n.toString() + ' is unbound in ' + l);
+    }
+  };
+}
+
 describe('Sanity tests', function() {
   var langs = say.thisNumber(50).languages;
-  it('should return a list of languages', function() {
-    assert.equal(langs.length, 20);
+  it('returns a list of languages', function() {
+    assert.equal(langs.length, 16);
   });
   it('should say a 21', function() {
     for (var i = 0; i < langs.length; i++) {
       var l = langs[i];
-      assert.doesNotThrow(function() {
-        say.thisNumber(21).in(l);
-      });
+      assert.doesNotThrow(sanityTest(21, l));
     }
   });
   it('should say a 467', function() {
     for (var i = 0; i < langs.length; i++) {
       var l = langs[i];
-      assert.doesNotThrow(function() {
-        say.thisNumber(467).in(l);
-      });
+      assert.doesNotThrow(sanityTest(467, l));
     }
   });
   it('should say a 8732', function() {
     for (var i = 0; i < langs.length; i++) {
       var l = langs[i];
-      assert.doesNotThrow(function() {
-        say.thisNumber(8732).in(l);
-      });
+      assert.doesNotThrow(sanityTest(8732, l));
     }
   });
 });
