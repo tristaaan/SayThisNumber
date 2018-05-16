@@ -20,7 +20,7 @@ Multiple numbers:
 
 ```js
 import say from 'SayThisNumber';
-say.theseNumbers([33, 91]).in('icelandic') // => [ 'þrettán', 'níutíu og sjö' ]
+say.theseNumbers([33, 91]).in('icelandic') // => [ 'þrettán', 'níutíu og einn' ]
 ```
 
 In the browser there is an exposed `say` object with the same API.
@@ -35,10 +35,9 @@ Always seeking pull requests for new languages!
 4. Add your name to the [authors list](AUTHORS).
 5. Submit a pull request.
 
-
 ## Supported Languages
 
-[List of parsers](https://github.com/tristaaan/SayThisNumber/tree/master/src/parsers).
+[List of parsers](https://github.com/tristaaan/SayThisNumber/blob/master/src/languages.js#L23-L48).
 
 ## License
 
