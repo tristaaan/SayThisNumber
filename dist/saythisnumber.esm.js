@@ -905,7 +905,7 @@ function parseGreaterThanOrEqualTo1000$3(n) {
     } else if (piece < 100 && numbers$9.hasSingle) {
       piece = andSingle$3(piece);
     } else {
-      piece = parseNumber$10(parseInt(piece), ctr < 3);
+      piece = parseNumber$a(parseInt(piece));
     }
 
     out = piece + ' ' + (ctr >= 3 ? numbers$9[Math.pow(10, ctr)] : '') + ' ' + out;
@@ -913,15 +913,15 @@ function parseGreaterThanOrEqualTo1000$3(n) {
     nStr = nStr.substr(0, nStr.length - 3);
     ctr += 3;
   }
-  out = parseNumber$10(nStr.substr(0, 3)) + ' ' + numbers$9[Math.pow(10, ctr)] + ' ' + out;
+  out = parseNumber$a(nStr.substr(0, 3)) + ' ' + numbers$9[Math.pow(10, ctr)] + ' ' + out;
   return out;
 }
 
 function andSingle$3(n) {
-  return numbers$9.conjunction + ' ' + parseNumber$10(n, true);
+  return numbers$9.conjunction + ' ' + parseNumber$a(n);
 }
 
-function parseNumber$10(n) {
+function parseNumber$a(n) {
   var out = '';
   var negative = n < 0;
 
@@ -952,7 +952,7 @@ Author: Tristan Wright
 Last edited: March 2014
 **********************************************************************/
 
-var numbers$10 = {'hasSingle': false, 'negative':'negativo',
+var numbers$a = {'hasSingle': false, 'negative':'negativo',
   0:'zero', 1:'uno', 2:'due', 3:'tre', 4:'quattro', 5:'cinque',
   6:'sei', 7:'sette', 8:'otto', 9:'nove', 10:'dieci',
   11:'undici', 12:'dodici', 13:'tredici', 14:'quattordici', 15: 'quindici',
@@ -969,7 +969,7 @@ var numbers$10 = {'hasSingle': false, 'negative':'negativo',
    the equivalent of "two" in the target language. */
 
 function getPlace$6(n, which, scale) {
-  return numbers$10[parseInt(n.toString()[which]) * scale];
+  return numbers$a[parseInt(n.toString()[which]) * scale];
 }
 
 function parse10s$6(n, ignore0) {
@@ -977,7 +977,7 @@ function parse10s$6(n, ignore0) {
   if (n === 0 && ignore0) {
     out = '';
   } else if (n <= 20) {
-    out = numbers$10[n];
+    out = numbers$a[n];
   } else {
     if (n % 10 === 0) {
       out = getPlace$6(n, 0, 10);
@@ -994,13 +994,13 @@ function parse10s$6(n, ignore0) {
 function parse100s$6(n) {
   var out = '';
   if (n === 100) {
-    out = numbers$10[100];
+    out = numbers$a[100];
   } else if (n % 100 === 0 && Math.floor(n / 100) > 1) {
-    out = getPlace$6(n, 0, 1) + numbers$10[100];
+    out = getPlace$6(n, 0, 1) + numbers$a[100];
   } else if (Math.floor(n / 100) > 1) {
-    out = getPlace$6(n, 0, 1) + numbers$10[100] + parse10s$6(parseInt(n.toString().substr(1, 2)), true);
+    out = getPlace$6(n, 0, 1) + numbers$a[100] + parse10s$6(parseInt(n.toString().substr(1, 2)), true);
   } else {
-    out = numbers$10[100] + parse10s$6(parseInt(n.toString().substr(1, 2)), true);
+    out = numbers$a[100] + parse10s$6(parseInt(n.toString().substr(1, 2)), true);
   }
 
   return out;
@@ -1018,19 +1018,19 @@ function parseGreaterThanOrEqualTo1000$4(n) {
       ctr += 3;
       continue;
     } else {
-      piece = parseNumber$11(parseInt(piece));
+      piece = parseNumber$b(parseInt(piece));
     }
 
-    out = piece + ' ' + (ctr >= 3 ? numbers$10[Math.pow(10, ctr)] : '') + ' ' + out;
+    out = piece + ' ' + (ctr >= 3 ? numbers$a[Math.pow(10, ctr)] : '') + ' ' + out;
 
     nStr = nStr.substr(0, nStr.length - 3);
     ctr += 3;
   }
-  out = parseNumber$11(nStr.substr(0, 3)) + ' ' + numbers$10[Math.pow(10, ctr)] + ' ' + out;
+  out = parseNumber$b(nStr.substr(0, 3)) + ' ' + numbers$a[Math.pow(10, ctr)] + ' ' + out;
   return out;
 }
 
-function parseNumber$11(n) {
+function parseNumber$b(n) {
   var out = '';
   var negative = n < 0;
 
@@ -1049,7 +1049,7 @@ function parseNumber$11(n) {
   }
 
   if (negative) {
-    out = numbers$10.negative + ' ' + out;
+    out = numbers$a.negative + ' ' + out;
   }
 
   return out.trim();
@@ -1086,7 +1086,7 @@ var majorPowers = {
   '20': 'がい' // 10^20 = 1 0000 0000 0000 0000 = gai
 };
 
-function parseNumber$12(n) {
+function parseNumber$c(n) {
   var out = '';
 
   var negative = (n < 0);
@@ -1175,7 +1175,7 @@ var majorPowers$1 = {
   '20': '垓' // 10^20 = 1 0000 0000 0000 0000 = gai
 };
 
-function parseNumber$13(n) {
+function parseNumber$d(n) {
   var out = '';
 
   var negative = (n < 0);
@@ -1233,7 +1233,7 @@ Author: Gus Schuerger
 Last edited: March 2014
 **********************************************************************/
 
-var numbers$11 = {'negative': 'minus',
+var numbers$b = {'negative': 'minus',
   0:'zero', 1:'ichi', 2:'ni', 3:'san', 4:'yon', 5:'go',
   6:'roku', 7:'nana', 8:'hachi', 9:'kyuu', 10:'jyuu', 100:'hyaku',
   300:'sanbyaku', 600:'roppyaku', 800:'happyaku',
@@ -1247,7 +1247,7 @@ var numbers$11 = {'negative': 'minus',
    the equivalent of "two" in the target language. */
 
 function getPlace$7(n, which, scale) {
-  return numbers$11[parseInt(n.toString()[which]) * scale];
+  return numbers$b[parseInt(n.toString()[which]) * scale];
 }
 
 /*   Function: checkForNumber
@@ -1265,11 +1265,11 @@ function parse10s$7(n, ignore0) {
   if (n === 0 && ignore0) {
     out = '';
   } else if (n <= 10) {
-    out = numbers$11[n];
+    out = numbers$b[n];
   } else if (n < 20) {
-    out = numbers$11[10] + getPlace$7(n, 1, 1);
+    out = numbers$b[10] + getPlace$7(n, 1, 1);
   } else {
-    out = getPlace$7(n, 0, 1) + numbers$11[10];
+    out = getPlace$7(n, 0, 1) + numbers$b[10];
     if (n % 10 !== 0) {
       out = out + ' ' + getPlace$7(n, 1, 1);
     }
@@ -1285,9 +1285,9 @@ function parse100s$7(n) {
   if (hundreds === 0) {
     out = parse10s$7(n, true);
   } else if (checkForNumber(hundreds, [1, 3, 6, 8])) {
-    out = numbers$11[hundreds * 100] + ' ' + tens;
+    out = numbers$b[hundreds * 100] + ' ' + tens;
   } else {
-    out = numbers$11[hundreds] + numbers$11[100] + ' ' + tens;
+    out = numbers$b[hundreds] + numbers$b[100] + ' ' + tens;
   }
 
   return out;
@@ -1300,9 +1300,9 @@ function parse1000s$1(n) {
   if (thousands === 0) {
     out = parse100s$7(n);
   } else if (checkForNumber(thousands, [1, 3, 8])) {
-    out = numbers$11[thousands * 1000] + ' ' + hundreds;
+    out = numbers$b[thousands * 1000] + ' ' + hundreds;
   } else {
-    out = numbers$11[thousands] + numbers$11[1000] + ' ' + hundreds;
+    out = numbers$b[thousands] + numbers$b[1000] + ' ' + hundreds;
   }
 
   return out;
@@ -1313,13 +1313,13 @@ function parseLessThanOku(n) {
   var nStr = n.toString();
   var top = parseInt(nStr.substr(0, nStr.length - 4));
   var thousands = parse1000s$1(parseInt(nStr.substr(nStr.length - 4, nStr.length)));
-  out = parseNumber$14(top);
-  out = out + ' ' + numbers$11[10000] + ' ' + thousands;
+  out = parseNumber$e(top);
+  out = out + ' ' + numbers$b[10000] + ' ' + thousands;
 
   return out;
 }
 
-function parseNumber$14(n) {
+function parseNumber$e(n) {
   var out = '';
   var negative = n < 0;
 
@@ -1340,7 +1340,7 @@ function parseNumber$14(n) {
   }
 
   if (negative) {
-    out = numbers$11.negative + ' ' + out;
+    out = numbers$b.negative + ' ' + out;
   }
 
   return out.trim();
@@ -1352,7 +1352,7 @@ Author: Tristan Wright
 Last edited: September 2014
 **********************************************************************/
 
-var numbers$12 = {'hasSingle': false, 'conjunction': 'og', 'negative': 'negativ',
+var numbers$c = {'hasSingle': false, 'conjunction': 'og', 'negative': 'negativ',
   0:'null', 1:'en', 2:'to', 3:'tre', 4:'fire', 5:'fem',
   6:'seks', 7:'syv', 8:'åtte', 9:'ni', 10:'ti',
   11:'elleve', 12:'tolv', 13:'tretten', 14:'fjorten', 15: 'femten',
@@ -1368,7 +1368,7 @@ var numbers$12 = {'hasSingle': false, 'conjunction': 'og', 'negative': 'negativ'
    the equivalent of "two" in the target language. */
 
 function getPlace$8(n, which, scale) {
-  return numbers$12[parseInt(n.toString()[which]) * scale];
+  return numbers$c[parseInt(n.toString()[which]) * scale];
 }
 
 function parse10s$8(n, ignore0) {
@@ -1376,7 +1376,7 @@ function parse10s$8(n, ignore0) {
   if (n === 0 && ignore0) {
     out = '';
   } else if (n <= 20) {
-    out = numbers$12[n];
+    out = numbers$c[n];
   } else {
     if (n % 10 === 0) {
       out = getPlace$8(n, 0, 10);
@@ -1390,9 +1390,9 @@ function parse10s$8(n, ignore0) {
 function parse100s$8(n) {
   var out = '';
   if (n % 100 === 0) {
-    out = getPlace$8(n, 0, 1) + ' ' + numbers$12[100];
+    out = getPlace$8(n, 0, 1) + ' ' + numbers$c[100];
   } else {
-    out = getPlace$8(n, 0, 1) + ' ' + numbers$12[100] + ' ' + numbers$12.conjunction + ' ' + parse10s$8(parseInt(n.toString().substr(1, 2)), true);
+    out = getPlace$8(n, 0, 1) + ' ' + numbers$c[100] + ' ' + numbers$c.conjunction + ' ' + parse10s$8(parseInt(n.toString().substr(1, 2)), true);
   }
 
   return out;
@@ -1409,26 +1409,26 @@ function parseGreaterThanOrEqualTo1000$5(n) {
       nStr = nStr.substr(0, nStr.length - 3);
       ctr += 3;
       continue;
-    } else if (piece < 100 && numbers$12.hasSingle) {
+    } else if (piece < 100 && numbers$c.hasSingle) {
       piece = andSingle$4(piece);
     } else {
-      piece = parseNumber$15(parseInt(piece));
+      piece = parseNumber$f(parseInt(piece));
     }
 
-    out = piece + ' ' + (ctr >= 3 ? numbers$12[Math.pow(10, ctr)] : '') + ' ' + out;
+    out = piece + ' ' + (ctr >= 3 ? numbers$c[Math.pow(10, ctr)] : '') + ' ' + out;
 
     nStr = nStr.substr(0, nStr.length - 3);
     ctr += 3;
   }
-  out = parseNumber$15(nStr.substr(0, 3)) + ' ' + numbers$12[Math.pow(10, ctr)] + ' ' + out;
+  out = parseNumber$f(nStr.substr(0, 3)) + ' ' + numbers$c[Math.pow(10, ctr)] + ' ' + out;
   return out;
 }
 
 function andSingle$4(n) {
-  return numbers$12.conjunction + ' ' + parseNumber$15(n);
+  return numbers$c.conjunction + ' ' + parseNumber$f(n);
 }
 
-function parseNumber$15(n) {
+function parseNumber$f(n) {
   var out = '';
   var negative = n < 0;
 
@@ -1447,7 +1447,7 @@ function parseNumber$15(n) {
   }
 
   if (negative) {
-    out = numbers$12.negative + ' ' + out;
+    out = numbers$c.negative + ' ' + out;
   }
 
   return out.trim();
@@ -1459,7 +1459,7 @@ Author: Wagner Leonardi
 Last edited: Novemeber 2015
 **********************************************************************/
 
-var numbers$13 = {'hasSingle': true, 'conjunction': 'e', '':'um', 'negative':'menos',
+var numbers$d = {'hasSingle': true, 'conjunction': 'e', '':'um', 'negative':'menos',
   0:'zero', 1:'um', 2:'dois', 3:'três', 4:'quatro', 5:'cinco',
   6:'seis', 7:'sete', 8:'oito', 9:'nove', 10:'dez',
   11:'onze', 12:'doze', 13:'treze', 14:'quatorze', 15: 'quinze', 16: 'dezesseis', 17: 'dezessete', 18: 'dezoito', 19: 'dezenove',
@@ -1477,7 +1477,7 @@ var numbers$13 = {'hasSingle': true, 'conjunction': 'e', '':'um', 'negative':'me
  the equivalent of "two" in the target language. */
 
 function getPlace$9(n, which, scale) {
-  return numbers$13[parseInt(n.toString()[which]) * scale];
+  return numbers$d[parseInt(n.toString()[which]) * scale];
 }
 
 function parse10s$9(n, ignore0) {
@@ -1485,12 +1485,12 @@ function parse10s$9(n, ignore0) {
   if (n === 0 && ignore0) {
     out = '';
   } else if (n <= 20) {
-    out = numbers$13[n];
+    out = numbers$d[n];
   } else {
     if (n % 10 === 0) {
       out = getPlace$9(n, 0, 10);
     } else {
-      out = getPlace$9(n, 0, 10) + ' ' + numbers$13.conjunction + ' ' + getPlace$9(n, 1, 1);
+      out = getPlace$9(n, 0, 10) + ' ' + numbers$d.conjunction + ' ' + getPlace$9(n, 1, 1);
     }
   }
   return out;
@@ -1499,14 +1499,14 @@ function parse10s$9(n, ignore0) {
 function parse100s$9(n) {
   var out = '';
   if (n === 100) {
-    out = numbers$13[100];
+    out = numbers$d[100];
   } else if (n % 100 === 0) {
-    out = numbers$13[n];
+    out = numbers$d[n];
   } else {
     if (inRange(n, 100, 200)) {
-      out = numbers$13['100s'] + ' ' + numbers$13.conjunction + ' ' + parse10s$9(parseInt(n.toString().substr(1, 2)), true);
+      out = numbers$d['100s'] + ' ' + numbers$d.conjunction + ' ' + parse10s$9(parseInt(n.toString().substr(1, 2)), true);
     } else {
-      out = numbers$13[Math.floor(n / 100) * 100] + ' ' + numbers$13.conjunction + ' ' + parse10s$9(parseInt(n.toString().substr(1, 2)), true);
+      out = numbers$d[Math.floor(n / 100) * 100] + ' ' + numbers$d.conjunction + ' ' + parse10s$9(parseInt(n.toString().substr(1, 2)), true);
     }
   }
 
@@ -1524,30 +1524,30 @@ function parseGreaterThanOrEqualTo1000$6(n) {
       nStr = nStr.substr(0, nStr.length - 3);
       ctr += 3;
       continue;
-    } else if (piece < 100 && numbers$13.hasSingle) {
+    } else if (piece < 100 && numbers$d.hasSingle) {
       piece = andSingle$5(piece);
     } else {
-      piece = parseNumber$16(parseInt(piece));
+      piece = parseNumber$g(parseInt(piece));
     }
 
-    out = piece + ' ' + (ctr >= 3 ? numbers$13[Math.pow(10, ctr)] : '') + ' ' + out;
+    out = piece + ' ' + (ctr >= 3 ? numbers$d[Math.pow(10, ctr)] : '') + ' ' + out;
 
     nStr = nStr.substr(0, nStr.length - 3);
     ctr += 3;
   }
-  out = parseNumber$16(nStr.substr(0, 3)) + ' ' + numbers$13[Math.pow(10, ctr)] + ' ' + out;
+  out = parseNumber$g(nStr.substr(0, 3)) + ' ' + numbers$d[Math.pow(10, ctr)] + ' ' + out;
   return out;
 }
 
 function andSingle$5(n) {
-  return numbers$13.conjunction + ' ' + parseNumber$16(n);
+  return numbers$d.conjunction + ' ' + parseNumber$g(n);
 }
 
 function inRange(n, lower, upper) {
   return n > lower && n < upper;
 }
 
-function parseNumber$16(n) {
+function parseNumber$g(n) {
   var out = '';
   var negative = n < 0;
 
@@ -1566,7 +1566,7 @@ function parseNumber$16(n) {
   }
 
   if (negative) {
-    out = numbers$13.negative + ' ' + out;
+    out = numbers$d.negative + ' ' + out;
   }
 
   return out.trim();
@@ -1578,7 +1578,7 @@ Author: Tristan Wright
 Last edited: August 2014
 **********************************************************************/
 
-var numbers$14 = {'negative':'минус',
+var numbers$e = {'negative':'минус',
   0:'ноль', 1:'один', 2:'два', 3:'три', 4:'четыре',
   5:'пять', 6:'шесть', 7:'семь', 8:'восемь', 9:'девять',
   10:'десять', 11:'одиннадцать', 12:'двенадцать', 13:'тринадцать', 14:'четырнадцать',
@@ -1596,28 +1596,28 @@ var numbers$14 = {'negative':'минус',
    in the target language, and getPlace(n, 1, 1) will return
    the equivalent of "two" in the target language. */
 
-function getPlace$10(n, which, scale) {
-  return numbers$14[parseInt(n.toString()[which]) * scale];
+function getPlace$a(n, which, scale) {
+  return numbers$e[parseInt(n.toString()[which]) * scale];
 }
 
-function parse10s$10(n, ignore0) {
+function parse10s$a(n, ignore0) {
   var out = '';
   if (n === 0 && ignore0) {
     out = '';
   } else if (n <= 20) {
-    out = numbers$14[n];
+    out = numbers$e[n];
   } else {
     if (n % 10 === 0) {
-      out = getPlace$10(n, 0, 10);
+      out = getPlace$a(n, 0, 10);
     } else {
-      out = getPlace$10(n, 0, 10) + ' ' + getPlace$10(n, 1, 1);
+      out = getPlace$a(n, 0, 10) + ' ' + getPlace$a(n, 1, 1);
     }
   }
   return out;
 }
 
-function parse100s$10(n) {
-  return numbers$14[Math.floor(n / 100) * 100] + ' ' + parse10s$10(parseInt(n.toString().substr(1, 2)), true);
+function parse100s$a(n) {
+  return numbers$e[Math.floor(n / 100) * 100] + ' ' + parse10s$a(parseInt(n.toString().substr(1, 2)), true);
 }
 
 function parseGreaterThanOrEqualTo1000$7(n) {
@@ -1632,19 +1632,19 @@ function parseGreaterThanOrEqualTo1000$7(n) {
       ctr += 3;
       continue;
     } else {
-      piece = parseNumber$17(parseInt(piece));
+      piece = parseNumber$h(parseInt(piece));
     }
 
-    out = piece + ' ' + (ctr >= 3 ? numbers$14[Math.pow(10, ctr)] : '') + ' ' + out;
+    out = piece + ' ' + (ctr >= 3 ? numbers$e[Math.pow(10, ctr)] : '') + ' ' + out;
 
     nStr = nStr.substr(0, nStr.length - 3);
     ctr += 3;
   }
-  out = parseNumber$17(nStr.substr(0, 3)) + ' ' + numbers$14[Math.pow(10, ctr)] + ' ' + out;
+  out = parseNumber$h(nStr.substr(0, 3)) + ' ' + numbers$e[Math.pow(10, ctr)] + ' ' + out;
   return out;
 }
 
-function parseNumber$17(n) {
+function parseNumber$h(n) {
   var out = '';
   var negative = n < 0;
 
@@ -1652,9 +1652,9 @@ function parseNumber$17(n) {
     n *= -1;
   }
   if (n < 100) {
-    out = parse10s$10(n, false);
+    out = parse10s$a(n, false);
   } else if (n < 1000) {
-    out = parse100s$10(n);
+    out = parse100s$a(n);
   } else if (n >= 1000) {
     out = parseGreaterThanOrEqualTo1000$7(n);
   } else {
@@ -1662,7 +1662,7 @@ function parseNumber$17(n) {
   }
 
   if (negative) {
-    out = numbers$14.negative + ' ' + out;
+    out = numbers$e.negative + ' ' + out;
   }
 
   return out.trim();
@@ -1674,7 +1674,7 @@ Author: Tristan Wright
 Last edited: March 2014
 **********************************************************************/
 
-var numbers$15 = {'hasSingle': true, 'conjunction': 'y', '':'un', 'negative':'menos', 'shortOne': 'un',
+var numbers$f = {'hasSingle': true, 'conjunction': 'y', '':'un', 'negative':'menos', 'shortOne': 'un',
   0:'cero', 1:'uno', 2:'dos', 3:'tres', 4:'cuatro', 5:'cinco',
   6:'seis', 7:'siete', 8:'ocho', 9:'nueve', 10:'diez',
   11:'once', 12:'doce', 13:'trece', 14:'catorce', 15: 'quince',
@@ -1690,46 +1690,46 @@ var numbers$15 = {'hasSingle': true, 'conjunction': 'y', '':'un', 'negative':'me
    in the target language, and getPlace(n, 1, 1) will return
    the equivalent of "two" in the target language. */
 
-function getPlace$11(n, which, scale) {
-  return numbers$15[parseInt(n.toString()[which]) * scale];
+function getPlace$b(n, which, scale) {
+  return numbers$f[parseInt(n.toString()[which]) * scale];
 }
 
-function parse10s$11(n, ignore0) {
+function parse10s$b(n, ignore0) {
   var out = '';
   if (n === 0 && ignore0) {
     out = '';
   } else if (n <= 15) {
-    out = numbers$15[n];
+    out = numbers$f[n];
   } else if (n > 15 && n < 20) {
-    out = numbers$15[10] + ' ' + numbers$15.conjunction + ' ' + getPlace$11(n, 1, 1);
+    out = numbers$f[10] + ' ' + numbers$f.conjunction + ' ' + getPlace$b(n, 1, 1);
   } else {
     if (n % 10 === 0) {
-      out = getPlace$11(n, 0, 10);
+      out = getPlace$b(n, 0, 10);
     } else {
-      out = getPlace$11(n, 0, 10) + ' ' + numbers$15.conjunction + ' ' + getPlace$11(n, 1, 1);
+      out = getPlace$b(n, 0, 10) + ' ' + numbers$f.conjunction + ' ' + getPlace$b(n, 1, 1);
     }
   }
   return out;
 }
 
-function parse100s$11(n) {
+function parse100s$b(n) {
   var out = '';
   if (n === 100) {
-    out = numbers$15[100];
+    out = numbers$f[100];
   } else if (n % 100 === 0 && Math.floor(n / 100) > 1) {
     if (n === 500 || n === 700 || n === 900) {
-      out = numbers$15[n];
+      out = numbers$f[n];
     } else {
-      out = getPlace$11(n, 0, 1) + numbers$15[100] + 'tos';
+      out = getPlace$b(n, 0, 1) + numbers$f[100] + 'tos';
     }
   } else if (Math.floor(n / 100) > 1) {
     if (inRange$1(n, 500, 600) || inRange$1(n, 700, 800) || inRange$1(n, 900, 1000)) {
-      out = numbers$15[Math.floor(n / 100) * 100] + ' ' + parse10s$11(parseInt(n.toString().substr(1, 2)), true);
+      out = numbers$f[Math.floor(n / 100) * 100] + ' ' + parse10s$b(parseInt(n.toString().substr(1, 2)), true);
     } else {
-      out = getPlace$11(n, 0, 1) + numbers$15[100] + 'tos ' + parse10s$11(parseInt(n.toString().substr(1, 2)), true);
+      out = getPlace$b(n, 0, 1) + numbers$f[100] + 'tos ' + parse10s$b(parseInt(n.toString().substr(1, 2)), true);
     }
   } else {
-    out = numbers$15[100] + 'to ' + parse10s$11(parseInt(n.toString().substr(1, 2)), true);
+    out = numbers$f[100] + 'to ' + parse10s$b(parseInt(n.toString().substr(1, 2)), true);
   }
 
   return out;
@@ -1746,30 +1746,30 @@ function parseGreaterThanOrEqualTo1000$8(n) {
       nStr = nStr.substr(0, nStr.length - 3);
       ctr += 3;
       continue;
-    } else if (piece < 100 && numbers$15.hasSingle) {
+    } else if (piece < 100 && numbers$f.hasSingle) {
       piece = andSingle$6(piece);
     } else {
-      piece = parseNumber$18(parseInt(piece));
+      piece = parseNumber$i(parseInt(piece));
     }
 
-    out = piece + ' ' + (ctr >= 3 ? numbers$15[Math.pow(10, ctr)] : '') + ' ' + out;
+    out = piece + ' ' + (ctr >= 3 ? numbers$f[Math.pow(10, ctr)] : '') + ' ' + out;
 
     nStr = nStr.substr(0, nStr.length - 3);
     ctr += 3;
   }
-  out = parseNumber$18(nStr.substr(0, 3)) + ' ' + numbers$15[Math.pow(10, ctr)] + ' ' + out;
+  out = parseNumber$i(nStr.substr(0, 3)) + ' ' + numbers$f[Math.pow(10, ctr)] + ' ' + out;
   return out;
 }
 
 function andSingle$6(n) {
-  return numbers$15.conjunction + ' ' + parseNumber$18(n);
+  return numbers$f.conjunction + ' ' + parseNumber$i(n);
 }
 
 function inRange$1(n, lower, upper) {
   return n > lower && n < upper;
 }
 
-function parseNumber$18(n) {
+function parseNumber$i(n) {
   var out = '';
   var negative = n < 0;
 
@@ -1778,9 +1778,9 @@ function parseNumber$18(n) {
   }
 
   if (n < 100) {
-    out = parse10s$11(n, false);
+    out = parse10s$b(n, false);
   } else if (n < 1000) {
-    out = parse100s$11(n);
+    out = parse100s$b(n);
   } else if (n >= 1000) {
     out = parseGreaterThanOrEqualTo1000$8(n);
   } else {
@@ -1788,13 +1788,13 @@ function parseNumber$18(n) {
   }
 
   if (negative) {
-    out = numbers$15.negative + ' ' + out;
+    out = numbers$f.negative + ' ' + out;
   }
 
   return out.trim();
 }
 
-var numbers$16 = {'hasSingle': true, 'conjunction': '', 'negative': 'minus',
+var numbers$g = {'hasSingle': true, 'conjunction': '', 'negative': 'minus',
   0:'noll', 1:'ett', 2:'två', 3:'tre', 4:'fyra', 5:'fem',
   6:'sex', 7:'sju', 8:'åtta', 9:'nio', 10:'tio',
   11:'elva', 12:'tolv', 13:'tretton', 14:'fjorton', 15: 'femton',
@@ -1802,32 +1802,32 @@ var numbers$16 = {'hasSingle': true, 'conjunction': '', 'negative': 'minus',
   30:'trettio', 40:'fyrtio', 50:'femtio', 60:'sextio', 70:'sjuttio', 80:'åttio', 90:'nittio', 100:'hundra',
   1000: 'tusen', 1000000:'miljon', 1000000000:'miljard', 1000000000000:'biljon', 1000000000000000:'biljard'};
 
-function getPlace$12(n, which, scale) {
-  return numbers$16[parseInt(n.toString()[which]) * scale];
+function getPlace$c(n, which, scale) {
+  return numbers$g[parseInt(n.toString()[which]) * scale];
 }
 
-function parse10s$12(n, ignore0) {
+function parse10s$c(n, ignore0) {
   var out = '';
   if (n === 0 && ignore0) {
     out = '';
   } else if (n <= 20) {
-    out = numbers$16[n];
+    out = numbers$g[n];
   } else {
     if (n % 10 === 0) {
-      out = getPlace$12(n, 0, 10);
+      out = getPlace$c(n, 0, 10);
     } else {
-      out = getPlace$12(n, 0, 10) + getPlace$12(n, 1, 1);
+      out = getPlace$c(n, 0, 10) + getPlace$c(n, 1, 1);
     }
   }
   return out;
 }
 
-function parse100s$12(n) {
+function parse100s$c(n) {
   var out = '';
   if (n % 100 === 0) {
-    out = getPlace$12(n, 0, 1) + numbers$16[100];
+    out = getPlace$c(n, 0, 1) + numbers$g[100];
   } else {
-    out = getPlace$12(n, 0, 1) + numbers$16[100] + numbers$16.conjunction + parse10s$12(parseInt(n.toString().substr(1, 2)), true);
+    out = getPlace$c(n, 0, 1) + numbers$g[100] + numbers$g.conjunction + parse10s$c(parseInt(n.toString().substr(1, 2)), true);
   }
 
   return out;
@@ -1844,26 +1844,26 @@ function parseGreaterThanOrEqualTo1000$9(n) {
       nStr = nStr.substr(0, nStr.length - 3);
       ctr += 3;
       continue;
-    } else if (piece < 100 && numbers$16.hasSingle) {
+    } else if (piece < 100 && numbers$g.hasSingle) {
       piece = andSingle$7(piece);
     } else {
-      piece = parseNumber$19(parseInt(piece));
+      piece = parseNumber$j(parseInt(piece));
     }
 
-    out = piece + (ctr >= 3 ? numbers$16[Math.pow(10, ctr)] : '') + out;
+    out = piece + (ctr >= 3 ? numbers$g[Math.pow(10, ctr)] : '') + out;
 
     nStr = nStr.substr(0, nStr.length - 3);
     ctr += 3;
   }
-  out = parseNumber$19(nStr.substr(0, 3)) + numbers$16[Math.pow(10, ctr)] + out;
+  out = parseNumber$j(nStr.substr(0, 3)) + numbers$g[Math.pow(10, ctr)] + out;
   return out;
 }
 
 function andSingle$7(n) {
-  return numbers$16.conjunction + parseNumber$19(n);
+  return numbers$g.conjunction + parseNumber$j(n);
 }
 
-function parseNumber$19(n) {
+function parseNumber$j(n) {
   var out = '';
   var negative = n < 0;
 
@@ -1872,9 +1872,9 @@ function parseNumber$19(n) {
   }
 
   if (n < 100) {
-    out = parse10s$12(n, false);
+    out = parse10s$c(n, false);
   } else if (n < 1000) {
-    out = parse100s$12(n);
+    out = parse100s$c(n);
   } else if (n >= 1000) {
     out = parseGreaterThanOrEqualTo1000$9(n);
   } else {
@@ -1882,7 +1882,7 @@ function parseNumber$19(n) {
   }
 
   if (negative) {
-    out = numbers$16.negative + ' ' + out;
+    out = numbers$g.negative + ' ' + out;
   }
 
   return out.trim();
@@ -1902,19 +1902,19 @@ var languages = {
   estonian: parseNumber$7,
   french: parseNumber$8,
   german: parseNumber$9,
-  icelandic: parseNumber$10,
-  italian: parseNumber$11,
+  icelandic: parseNumber$a,
+  italian: parseNumber$b,
   japanese: {
     default: 'kanji',
-    kanji: parseNumber$13,
-    hiragana: parseNumber$12,
-    romanji: parseNumber$14
+    kanji: parseNumber$d,
+    hiragana: parseNumber$c,
+    romanji: parseNumber$e
   },
-  norwegian: parseNumber$15,
-  portuguese: parseNumber$16,
-  russian: parseNumber$17,
-  spanish: parseNumber$18,
-  swedish: parseNumber$19
+  norwegian: parseNumber$f,
+  portuguese: parseNumber$g,
+  russian: parseNumber$h,
+  spanish: parseNumber$i,
+  swedish: parseNumber$j
 };
 
 var Parser = function(n) {
