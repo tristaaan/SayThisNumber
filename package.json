@@ -18,7 +18,7 @@
     "npm": "^6.11.2"
   },
   "devDependencies": {
-    "eslint": "6.2.2",
+    "eslint": "6.3.0",
     "eslint-config-standard": "11.0.0",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-node": "8.0.1",
