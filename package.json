@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "101": "^1.6.3",
-    "npm": "^6.13.4"
+    "npm": "^6.14.6"
   },
   "devDependencies": {
     "eslint": "6.3.0",
